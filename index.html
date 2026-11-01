@@ -657,8 +657,8 @@ Object.assign(C0('perf').offer,{mode:'single',limit:150,assigned:118,redeemed:96
 Object.assign(C0('aboverl').offer,{mode:'unique',code:'TREUE10-',limit:50,assigned:0,redeemed:0});
 const C=id=>CAMPS.find(c=>c.id===id);
 // Kampagnen-Owner: jede Person hat einen eigenen Agenten; ein Agent sieht nur die Kampagnen seines Owners
-const OWN={dw:['Daniel W.','DW','#5E0047'],sa:['Sandra','SA','#B0306F'],lk:['Lukas','LK','#2F6FB0']},ME='dw';
-{const m={li:'dw','find-li':'dw',hl:'dw',perf:'sa',nutri:'sa',aboverl:'sa',infl:'sa',ideen:'lk',web:'lk'};CAMPS.forEach(c=>c.owner=m[c.id]||ME)}
+const OWN={dw:['Daniel W.','DW','#5E0047'],sa:['Sandra M.','SM','#B0306F'],dr:['Daniel R.','DR','#2F6FB0']},ME='dw';
+{const m={li:'dw','find-li':'dw',hl:'dw',perf:'sa',nutri:'sa',aboverl:'sa',infl:'sa',ideen:'dr',web:'dr'};CAMPS.forEach(c=>c.owner=m[c.id]||ME)}
 const ownChip=o=>`<span class="own" style="--oc:${OWN[o][2]}"><span class="oa">${OWN[o][1]}</span>${o===ME?'Mein Agent':'Agent von '+OWN[o][0]}</span>`;
 let oFilter='alle';
 const vLeft=o=>o.limit?o.limit-(o.mode==='unique'?o.assigned:o.redeemed):null;
