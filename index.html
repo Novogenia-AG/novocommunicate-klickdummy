@@ -265,6 +265,22 @@ body.tv .board{grid-template-columns:minmax(0,1fr) 440px}
 .kbd{font-family:Consolas,monospace;font-size:11px;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 5px;background:#fff;color:var(--soft)}
 .ihint{font-size:12px;color:var(--soft);display:flex;gap:10px;flex-wrap:wrap}
 .backm{display:none}
+/* ---------- Rundgang ---------- */
+.tspot{position:fixed;z-index:60;border-radius:20px;box-shadow:0 0 0 9999px rgba(18,0,14,.62),0 0 0 3px var(--lime);pointer-events:none;transition:all .25s var(--ease)}
+.tshade{position:fixed;inset:0;z-index:59;background:rgba(18,0,14,.62)}
+.tcardw{position:fixed;z-index:61;right:24px;bottom:24px;width:min(420px,calc(100vw - 32px));background:#fff;color:var(--ink);border-radius:24px;padding:18px 18px 14px;box-shadow:0 30px 60px -20px rgba(0,0,0,.7)}
+.tcardw .tk{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--berry)}
+.tcardw h3{margin:6px 0 6px;font-size:20px;color:var(--plum);display:flex;gap:8px;align-items:center}
+.tcardw h3 .ic{width:22px;height:22px}
+.tcardw p{margin:0 0 8px;font-size:14.5px;line-height:1.5}
+.tcardw ul{margin:0 0 8px;padding-left:18px;font-size:14px;line-height:1.5}
+.tdots{display:flex;gap:4px;flex-wrap:wrap;margin:10px 0 12px}
+.tdots i{width:8px;height:8px;border-radius:50%;background:#E7CFE0;cursor:pointer}
+.tdots i.on{background:var(--plum);width:20px;border-radius:99px}
+.tnav{display:flex;gap:8px;align-items:center}
+.tnav .sp{flex:1}
+.tx{background:none;border:0;color:var(--soft);font-weight:700;cursor:pointer;display:inline-flex;gap:4px;align-items:center}
+@media (max-width:980px){.tcardw{left:16px;right:16px;bottom:84px;width:auto;padding:16px}.tcardw h3{font-size:18px}.tcardw p,.tcardw ul{font-size:13.5px}}
 .soc.perf .fbig{font-family:var(--num);font-size:24px;color:var(--plum);line-height:1.1}
 .fdel{display:inline-flex;gap:4px;align-items:center;font-size:11.5px;font-weight:800;color:#1d4600;background:#DDF1C9;border-radius:999px;padding:2px 8px;white-space:nowrap}
 .fdel .ic{width:12px;height:12px}
@@ -997,7 +1013,7 @@ function renderRail(cur){
     const [id,l,i]=n,b=id==='inbox'?handovers().length:id==='outbox'?waiting().length:id==='forms'?fOpen().length:id==='social'?pendingPosts().length:0;
     return `<a class="nav ${cur===id?'on':''}" href="#${id}">${ic(i)}<span>${l}</span>${b?`<span class="bdg">${b}</span>`:''}</a>`}).join('')}
 const topbar=()=>`<div class="top"><div class="who"><span class="avatar">DW</span><span class="hide-m">Daniel Wallerstorfer · Novogenia</span><span class="demo">Demo-Daten</span></div>
-  <div class="chips" style="flex-wrap:nowrap"><span class="agentpill"><span class="pulse"></span>Agent arbeitet</span></div></div>`;
+  <div class="chips" style="flex-wrap:nowrap"><button class="pill-btn" onclick="tour(0)" title="Rundgang durch alle Seiten">${ic('sparkles')} <span class="hide-m">Rundgang</span></button><span class="agentpill"><span class="pulse"></span>Agent arbeitet</span></div></div>`;
 function go(h){location.hash=h}
 
 /* ===================== Seiten ===================== */
@@ -1453,7 +1469,48 @@ function render(keep){const h=(location.hash.slice(1)||'board').split('/');const
 }
 addEventListener('hashchange',()=>{render();scrollTo(0,0)});
 addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+/* ----- Rundgang: geht alle Seiten durch und erklärt sie ----- */
+const TOUR=[
+ {h:'camps',ic:'sparkles',t:'Willkommen bei NovoCommunicate',p:'NovoCommunicate ist die Plattform, über die KI-Agenten für Novogenia mit Kunden, Resellern und Leads sprechen – per E-Mail, WhatsApp, LinkedIn, Instagram, YouTube, Push und Social Media. Menschen geben Aufträge, behalten den Überblick und springen ein, wo es nötig ist.',l:['Der Rundgang zeigt dir jede Seite in rund 3 Minuten.','Du kannst jederzeit beenden und über „Rundgang“ oben wieder starten.']},
+ {h:'camps',sel:'.camps',ic:'megaphone',t:'Kampagnen',p:'Hier siehst du alle Kampagnen. Jede Karte zeigt Ziel, Zielgruppe, Kanäle, Status und den Fortschritt: wie viele kontaktiert wurden, geantwortet haben und wie viele das Ziel wirklich erreicht haben.',l:['Jede Kampagne hat einen Owner – dessen Agent arbeitet sie ab.','Mit den Filtern oben siehst du z. B. nur deinen Agenten.']},
+ {h:'camp/perf',sel:'.kv',ic:'target',t:'Eine Kampagne im Detail',p:'Hier steht alles, was der Agent für diese Kampagne wissen muss: Owner, Ziel, Auftrag, Angebot mit Gutscheinen, erlaubte und verbotene Kanäle, Erinnerungen und wie der Erfolg geprüft wird.',l:['Erfolge zählen erst, wenn sie im OrderManager bestätigt sind.','Zu jeder gesendeten Nachricht gibt es einen Screenshot.']},
+ {h:'new',sel:'.purps',ic:'plus',t:'Neue Kampagne anlegen',p:'Hier gibst du einem Agenten einen neuen Auftrag. Du wählst Owner, Sprache und Ziel – z. B. „Endkunden zum Upsell bewegen“ oder „Neue Leads finden“ – und beschreibst den Auftrag in eigenen Worten.',l:['Danach folgen Zielgruppe, Angebot, Kanäle, Vorlagen, Auftreten und Regeln.','Ein Mensch kann festlegen, dass Nachrichten vor dem Senden freigegeben werden.']},
+ {h:'groups',sel:'.gcard',ic:'users',t:'Zielgruppen',p:'Zielgruppen sind Listen von Personen mit gemeinsamem Merkmal – sortiert in bestehende Kunden, bestehende Reseller und Kaltakquise. Bestehende Kunden kommen aus OrderManager und NovoPilot, Kaltakquise-Gruppen füllt der Agent selbst.'},
+ {h:'contacts',sel:'.ccard',ic:'contact',t:'Kontakte',p:'Jede Person ist ein Kontakt – egal über wie viele Kanäle und Kampagnen sie erreicht wird. So sieht man auf einen Blick, wer zuletzt wann kontaktiert wurde und ob jemand gesperrt ist.'},
+ {h:'contact/k11',sel:'.chrow',ic:'user-round',t:'Ein Kontakt im Detail',p:'Hier liegt alles zu einer Person: Verlauf über alle Kanäle, Kaufhistorie, was sich der Agent gemerkt hat, Anrede und Sprache, Einwilligungen, persönlicher Kauflink und der Kontaktplan für die nächsten Tage.',l:['Die Sprache ist hinterlegt – der Agent schreibt jede Person in ihrer Sprache an.','„Nicht mehr kontaktieren“ sperrt alle Kanäle und Kampagnen.']},
+ {h:'templates',sel:'.tcard',ic:'file-text',t:'Vorlagen',p:'Vorlagen für E-Mail, WhatsApp, LinkedIn, Push und mehr. Kampagnen greifen darauf zu, der Agent setzt Name, Gutscheincode und Kauflink ein und übersetzt in jede Sprache. E-Mails haben ein eigenes HTML-Design.'},
+ {h:'social',sel:'.socs.perfg',ic:'trending-up',t:'Social Media – Erfolge & Follower',p:'Hier trackt die Plattform LinkedIn, Instagram, Facebook, YouTube, TikTok und X: Follower-Entwicklung, Reichweite, Engagement, Link-Klicks und Bestellungen, die über die Links und Codes der Posts kommen.',l:['Zeitraum oben umschalten: 7, 30 oder 90 Tage.']},
+ {h:'social',sel:'.week',ic:'calendar-days',t:'Social Media – Wochenplan',p:'Der Agent plant und schreibt Posts für jede Plattform passend. Du gibst frei – einzeln oder alle auf einmal – und die Plattform veröffentlicht zum geplanten Zeitpunkt.',l:['Klick auf einen Post öffnet Vorschau und Text je Plattform.','KI-erstellte Inhalte werden gekennzeichnet.']},
+ {h:'outbox',sel:'.obar',ic:'send',t:'Senden – KI entwirft, Mensch sendet',p:'Für Kanäle, auf denen ein Mensch senden soll (z. B. LinkedIn), schreibt der Agent Entwürfe. Du wählst einzelne oder alle aus und sendest direkt aus der Plattform – niemand muss auf LinkedIn oder Instagram klicken.',l:['Absender und Zeitpunkt werden gespeichert, dazu ein Screenshot.']},
+ {h:'inbox/k3',sel:'.reply',ic:'inbox',t:'Posteingang – hier antwortet ein Mensch',p:'Wenn jemand mit einem Menschen sprechen will, eine Beschwerde oder eine medizinische Frage hat, landet das Gespräch hier. Zu jedem Gespräch liegt sofort ein KI-Vorschlag bereit.',l:['Anpassen, „Senden & nächstes“ – und weiter zum nächsten Gespräch.','Tastatur: Strg + Enter sendet, Alt + → überspringt.']},
+ {h:'forms/f1',sel:'.fsteps',ic:'clipboard-list',t:'Anfragen von den Websites',p:'Alle Formular-Anfragen von novogenia.com, novodaily.com und novopilot.com landen hier. Die Plattform filtert Spam, erkennt bestehende Kontakte, speichert die Einwilligung und ordnet jede Anfrage zu.',l:['Standardfragen beantwortet der Agent, B2B und Presse ein Mensch – mit fertigem Vorschlag.']},
+ {h:'agent',sel:'.arch',ic:'bot',t:'Agent & MCP',p:'So arbeitet ein Agent: Aufgabe holen, Kontext lesen, Regeln prüfen, senden, auswerten. Jede Person hat einen eigenen Agenten mit eigenem Zugangsschlüssel – er sieht nur die Kampagnen seines Owners.',l:['Grundhaltung: Der Agent steht immer auf der Seite des Kunden.']},
+ {h:'channels',ic:'plug',t:'Kanäle',p:'Hier sind alle Wege verbunden, über die der Agent spricht – mit Status. Alles läuft über die Plattform, jede gesendete Nachricht wird als Screenshot gespeichert, jede Antwort erfasst.'},
+ {h:'rules',ic:'shield-check',t:'Regeln',p:'Diese Regeln gelten für alle Kampagnen und werden von der Plattform technisch durchgesetzt – der Agent kann sie nicht umgehen: Sperren, Kontaktpausen, Einwilligung, Sprache, Gutscheine, Kennzeichnung als KI.',l:['Kampagnen können Regeln verschärfen, aber nie lockern.']},
+ {h:'camps',ic:'circle-check',t:'Fertig!',p:'Das war der Rundgang. Klick dich jetzt frei durch – alle Daten sind Demo-Daten, du kannst nichts kaputt machen. Den Rundgang startest du jederzeit wieder über „Rundgang“ oben rechts.'}
+];
+let TI=-1;
+function tour(i){TI=i;closeModal();const st=TOUR[i];const go2=()=>setTimeout(tourDraw,location.hash==='#'+st.h?30:220);
+  if(location.hash!=='#'+st.h){location.hash=st.h;go2()}else go2()}
+function tourEnd(){TI=-1;document.querySelectorAll('.tspot,.tshade,.tcardw').forEach(e=>e.remove());try{localStorage.setItem('nc_tour_done','1')}catch(e){}}
+function tourDraw(){if(TI<0)return;const st=TOUR[TI];document.querySelectorAll('.tspot,.tshade,.tcardw').forEach(e=>e.remove());
+  const el=st.sel&&document.querySelector('#main '+st.sel);
+  if(el){if(innerWidth<980){el.scrollIntoView({block:'start'});scrollBy(0,-12)}else el.scrollIntoView({block:'center'});const sp=document.createElement('div');sp.className='tspot';document.body.appendChild(sp);tourPos(sp,el)}
+  else{scrollTo(0,0);const sh=document.createElement('div');sh.className='tshade';sh.onclick=tourEnd;document.body.appendChild(sh)}
+  const c=document.createElement('div');c.className='tcardw';
+  c.innerHTML=`<div class="tk"><span>Rundgang · ${TI+1} von ${TOUR.length}</span><button class="tx" onclick="tourEnd()">${ic('x')} Beenden</button></div>
+   <h3>${ic(st.ic)} ${st.t}</h3><p>${st.p}</p>${st.l?`<ul>${st.l.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+   <div class="tdots">${TOUR.map((_,i)=>`<i class="${i===TI?'on':''}" onclick="tour(${i})" title="${TOUR[i].t}"></i>`).join('')}</div>
+   <div class="tnav">${TI>0?`<button class="btn line sm" onclick="tour(${TI-1})">${ic('chevron-left')} Zurück</button>`:''}<span class="sp"></span>${TI<TOUR.length-1?`<button class="btn lime sm" onclick="tour(${TI+1})">${TI===0?'Los geht’s':'Weiter'} ${ic('chevron-right')}</button>`:`<button class="btn lime sm" onclick="tourEnd()">${ic('check')} Rundgang beenden</button>`}</div>`;
+  document.body.appendChild(c)}
+function tourPos(sp,el){const r=el.getBoundingClientRect(),p=8,vh=innerHeight,top=Math.max(8,r.top-p),bot=Math.min(vh-8,r.bottom+p);
+  Object.assign(sp.style,{left:(r.left-p)+'px',top:top+'px',width:(r.width+2*p)+'px',height:Math.max(40,bot-top)+'px'})}
+addEventListener('scroll',()=>{const sp=document.querySelector('.tspot'),st=TOUR[TI];if(sp&&st&&st.sel){const el=document.querySelector('#main '+st.sel);if(el)tourPos(sp,el)}},{passive:true});
+addEventListener('resize',()=>{if(TI>=0)tourDraw()});
+addEventListener('keydown',e=>{if(TI<0)return;if(e.key==='Escape')tourEnd();else if(e.key==='ArrowRight'&&TI<TOUR.length-1)tour(TI+1);else if(e.key==='ArrowLeft'&&TI>0)tour(TI-1)});
+addEventListener('hashchange',()=>{if(TI>=0&&location.hash!=='#'+TOUR[TI].h)tourEnd()});
 render();
+{let done=false;try{done=localStorage.getItem('nc_tour_done')==='1'}catch(e){}if(!done)setTimeout(()=>tour(0),400)}
 </script>
 </body>
 </html>
