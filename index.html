@@ -1,0 +1,1079 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NovoCommunicate – Kampagnen-Leitstand (Klickdummy)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg0:#3C0033;--bg1:#12000E;--plum:#5E0047;--berry:#8C1D6E;--lime:#C6D63F;--lime-ink:#26001D;
+  --ink:#241F2C;--soft:#675E6E;--line:rgba(94,0,71,.12);--wash:#F7F1F5;
+  --ok:#5FA81E;--warn:#FFB81C;--bad:#D32F2F;--info:#3B82C4;
+  --f:'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif;--num:'Archivo Black','Montserrat',sans-serif;--ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{background:#12000E}
+html,body{margin:0}
+body{font-family:var(--f);color:#fff;min-height:100vh;line-height:1.45;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(1400px 800px at 70% -10%,#5a0a4c 0%,transparent 60%),linear-gradient(180deg,var(--bg0),var(--bg1));background-attachment:fixed}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px;border-radius:12px}
+.ic{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Shell ---------- */
+.app{display:grid;grid-template-columns:128px minmax(0,1fr);min-height:100vh}
+.rail{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;gap:3px;padding:16px 0;z-index:30;
+  background:linear-gradient(180deg,rgba(60,0,51,.72),rgba(26,0,20,.72));backdrop-filter:blur(18px) saturate(1.4);border-right:1px solid rgba(255,255,255,.1);overflow-y:auto;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.brand{font-weight:800;font-size:19px;letter-spacing:.02em;text-align:center;margin:6px 0 14px;line-height:1}.brand b{display:block;color:var(--lime);font-size:13px;letter-spacing:.04em;margin-top:3px}
+.nav{position:relative;width:108px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 6px;border-radius:18px;font-size:12px;font-weight:700;text-align:center;color:rgba(255,255,255,.86);transition:all .18s var(--ease)}
+.nav .ic{width:23px;height:23px}
+.nav:hover{background:rgba(255,255,255,.08)}
+.nav.on{background:var(--lime);color:var(--lime-ink);box-shadow:0 10px 24px -10px rgba(198,214,63,.6)}
+.nav .bdg{position:absolute;top:4px;right:18px;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#FF5A5A;color:#fff;font-size:11px;display:grid;place-items:center}
+.rail .sep{width:48px;height:1px;background:rgba(255,255,255,.14);margin:5px 0}
+.main{padding:20px 32px 80px;width:100%;max-width:1500px}
+.main.wide{max-width:none}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px}
+.who{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.8);min-width:0}
+.avatar{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-weight:800;font-size:12px;flex:none}
+.pill-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.25);font-size:13px;font-weight:700;white-space:nowrap}
+.pill-btn:hover{background:rgba(255,255,255,.08)}
+.agentpill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(198,214,63,.14);border:1px solid rgba(198,214,63,.45);font-size:13px;font-weight:700;color:var(--lime);white-space:nowrap}
+.pulse{width:9px;height:9px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(198,214,63,.7);animation:pl 1.8s infinite;flex:none}
+@keyframes pl{70%{box-shadow:0 0 0 10px rgba(198,214,63,0)}100%{box-shadow:0 0 0 0 rgba(198,214,63,0)}}
+.demo{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.75)}
+
+/* ---------- Hero / Sektionen ---------- */
+.hero{position:relative;border-radius:28px;padding:24px 28px 22px;background:var(--plum);border:1px solid rgba(255,255,255,.16);box-shadow:0 24px 48px -32px rgba(0,0,0,.65);margin-bottom:24px}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--lime)}
+.hero h1{font-size:40px;line-height:1.05;margin:8px 0 8px;font-weight:800;letter-spacing:-.01em}
+.hero p{margin:0 0 14px;color:rgba(255,255,255,.82);max-width:860px}
+.hero .acts{display:flex;gap:10px;flex-wrap:wrap}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.st{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(255,255,255,.88);color:var(--ink);white-space:nowrap}
+.st::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.st.y{background:#FFE3A3;color:#5a3c00}.st.g{background:#D7EFC0;color:#1d4600}.st.b{background:#D6E7F7;color:#0b2a4a}.st.p{background:#EBD6E6;color:var(--plum)}.st.r{background:#F8D2D2;color:#7a0d0d}.st.n{background:#E9E6EC;color:#4a4450}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:800;font-size:14px;transition:all .18s var(--ease);white-space:nowrap}
+.btn.lime{background:var(--lime);color:var(--lime-ink);box-shadow:0 12px 26px -12px rgba(198,214,63,.7)}
+.btn.lime:hover{transform:translateY(-1px)}
+.btn.lime:disabled{opacity:.45;transform:none;cursor:not-allowed}
+.btn.ghost{border:1px solid rgba(255,255,255,.3);color:#fff}
+.btn.line{border:1px solid var(--line);color:var(--plum);background:#fff}
+.btn.dark{background:var(--plum);color:#fff}
+.btn.red{background:#FBE3E3;color:#8a1010}
+.btn.sm{padding:8px 14px;font-size:13px}
+.sec{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:30px 0 4px}
+.sec h2{margin:0;font-size:13px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;display:flex;gap:10px;align-items:center}
+.sub{margin:0 0 14px;color:rgba(255,255,255,.72);font-size:14px}
+.card{background:#fff;color:var(--ink);border-radius:24px;padding:20px;box-shadow:0 18px 40px -28px rgba(0,0,0,.6)}
+.card h3{margin:0 0 6px;font-size:16px;color:var(--plum);display:flex;gap:8px;align-items:center}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.muted{color:var(--soft);font-size:13px}
+.empty{padding:22px;border:1.5px dashed var(--line);border-radius:18px;text-align:center;color:var(--soft);font-size:14px}
+
+/* ---------- KPI-Band ---------- */
+.kband{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px;margin-bottom:22px}
+.kpi{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:16px 18px}
+.kpi .l{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:7px}
+.kpi .v{font-family:var(--num);font-size:34px;line-height:1.1;margin-top:6px}
+.kpi .d{font-size:12px;color:var(--lime);font-weight:700}
+.kpi.alert{background:rgba(255,90,90,.16);border-color:rgba(255,120,120,.5)}
+.kpi.alert .d{color:#FFB3B3}
+
+/* ---------- Kartentyp 1: Kampagne (weiß, Megafon-Kachel, Status-Badge) ---------- */
+.tile{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;flex:none}
+.tile .ic{width:24px;height:24px}
+.sb{display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 8px;border-radius:999px;font-size:12.5px;font-weight:800;white-space:nowrap}
+.sb .ic{width:17px;height:17px}
+.sb.aktiv{background:#DDF1C9;color:#1d4600}.sb.pausiert{background:#FFE7AE;color:#5a3c00}.sb.geplant{background:#D9E8F8;color:#0b2a4a}.sb.abgeschlossen{background:#E9E6EC;color:#4a4450}
+.camps{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px}
+.camp{position:relative;background:#fff;color:var(--ink);border-radius:24px;padding:18px 18px 16px;box-shadow:0 18px 40px -28px rgba(0,0,0,.6);cursor:pointer;transition:transform .18s var(--ease)}
+.camp:hover{transform:translateY(-2px)}
+.camp.abgeschlossen{opacity:.8}
+.camp .hd{display:flex;gap:12px;align-items:flex-start}
+.camp .tile{background:var(--plum);color:var(--lime)}
+.camp.upd .tile{background:#0F4C81;color:#fff}
+.camp .nm{font-weight:800;font-size:17px;line-height:1.25;color:var(--plum)}
+.camp .grp{font-size:12.5px;color:var(--soft);margin-top:3px}
+.camp .typ{display:inline-flex;gap:5px;align-items:center;font-size:11.5px;font-weight:700;color:var(--soft);margin-top:4px}
+.camp .typ .ic{width:13px;height:13px}
+.camp .stline{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:14px 0 10px;flex-wrap:wrap}
+.chs{display:flex;gap:6px;flex-wrap:wrap}
+.chi{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;color:#fff;flex:none}
+.chi .ic{width:16px;height:16px}
+.funnel{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.funnel div{background:var(--wash);border-radius:12px;padding:8px 8px 7px}
+.funnel b{display:block;font-family:var(--num);font-size:19px;color:var(--plum);line-height:1.1}
+.funnel span{font-size:10.5px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.06em}
+.bar{height:8px;border-radius:99px;background:#EEE6EC;overflow:hidden;margin-top:12px;display:flex}
+.bar i{display:block;height:100%}
+.camp .ft{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:12px;color:var(--soft);gap:8px}
+.camp .ft span{display:flex;gap:6px;align-items:center}
+.camp .ft .ic{width:14px;height:14px}
+.camp .flag{display:inline-flex;gap:5px;align-items:center;background:#FFE1E1;color:#8a1010;font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:999px}
+.camp .flag .ic{width:13px;height:13px}
+.verif{display:inline-flex;gap:5px;align-items:center;color:#1d4600;font-weight:700}
+.spark{width:96px;height:30px;flex:none}
+
+/* ---------- Kartentyp 2: Zielgruppe (dunkles Glas, Lime-Kreis) ---------- */
+.gcat{margin-bottom:8px}
+.gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.gcard{background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.18);border-radius:24px;padding:18px;color:#fff;display:flex;flex-direction:column;gap:10px}
+.gcard .hd{display:flex;gap:12px;align-items:center}
+.gcard .circ{width:48px;height:48px;border-radius:50%;background:var(--lime);color:var(--lime-ink);display:grid;place-items:center;flex:none}
+.gcard .circ .ic{width:24px;height:24px}
+.gcard .nm{font-weight:800;font-size:16px;line-height:1.25}
+.gcard .num{font-family:var(--num);font-size:34px;color:var(--lime);line-height:1}
+.gcard .num small{font-family:var(--f);font-size:13px;color:rgba(255,255,255,.7);font-weight:600;margin-left:6px}
+.gcard dl{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;margin:0;font-size:13px}
+.gcard dt{color:rgba(255,255,255,.6)}.gcard dd{margin:0;font-weight:600}
+.gcard .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.gcard .grow{display:inline-flex;gap:5px;align-items:center;font-size:12px;font-weight:800;color:var(--lime)}
+.gcard .grow .ic{width:14px;height:14px}
+.catttl{display:flex;gap:10px;align-items:center}
+.catttl .ic{color:var(--lime)}
+
+/* ---------- Kartentyp 3: Kontakt (Zeile, runder Avatar) ---------- */
+.rows{display:flex;flex-direction:column;gap:10px}
+.ccard{background:#fff;color:var(--ink);border-radius:999px;padding:10px 12px 10px 10px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:14px;align-items:center;cursor:pointer;box-shadow:0 14px 30px -26px rgba(0,0,0,.6);transition:transform .15s var(--ease)}
+.ccard:hover{transform:translateY(-1px)}
+.lead{display:flex;gap:12px;align-items:center;min-width:0}
+.av{position:relative;width:48px;height:48px;border-radius:50%;background:var(--wash);color:var(--plum);display:grid;place-items:center;flex:none;font-weight:800;font-size:15px}
+.av .uic{position:absolute;right:-3px;bottom:-3px;width:22px;height:22px;border-radius:50%;background:var(--plum);color:#fff;display:grid;place-items:center;border:2px solid #fff}
+.av .uic .ic{width:11px;height:11px;stroke-width:2.5}
+.ccard .t{font-weight:800;font-size:15px}
+.ccard .s{font-size:12.5px;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ccard .mid{display:flex;flex-wrap:wrap;gap:6px}
+.ccard .rt{display:flex;align-items:center;gap:10px;justify-content:flex-end}
+.chevw{width:38px;height:38px;border-radius:50%;background:var(--plum);color:#fff;display:grid;place-items:center;flex:none}
+.chevw .ic{width:18px;height:18px}
+.ccard.dnc .av{background:#FBE3E3;color:#8a1010}
+.gtag{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--wash);color:var(--plum);white-space:nowrap}
+
+/* ---------- Kartentyp 4: Vorlage (Papier, Lime) ---------- */
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.tcard{background:#FBFCF0;color:var(--ink);border-radius:8px 24px 24px 24px;padding:18px;box-shadow:0 18px 40px -28px rgba(0,0,0,.6);display:flex;flex-direction:column;gap:10px;cursor:pointer}
+.tcard .hd{display:flex;gap:12px;align-items:center}
+.tcard .tile{background:var(--lime);color:var(--lime-ink);border-radius:12px}
+.tcard .nm{font-weight:800;font-size:15px;color:var(--lime-ink)}
+.tcard .pv{font-size:13px;color:#3d3644;background:#fff;border:1px dashed #D8DDA8;border-radius:12px;padding:10px 12px;max-height:96px;overflow:hidden;position:relative}
+.tcard .pv::after{content:"";position:absolute;left:0;right:0;bottom:0;height:28px;background:linear-gradient(transparent,#fff)}
+.var{background:#EEF3C4;color:#3a4500;border-radius:6px;padding:0 4px;font-weight:700;font-size:.92em}
+.tcard .ft{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--soft);align-items:center;flex-wrap:wrap}
+
+/* ---------- Leitstand ---------- */
+.board{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:20px;align-items:start}
+.feed{position:sticky;top:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:24px;padding:16px;max-height:calc(100vh - 40px);overflow:hidden;display:flex;flex-direction:column}
+.feed h3{margin:0 0 10px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.feed ul{list-style:none;margin:0;padding:0;overflow:auto;scrollbar-width:none}
+.feed ul::-webkit-scrollbar{display:none}
+.feed li{display:grid;grid-template-columns:32px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;animation:fi .4s var(--ease)}
+@keyframes fi{from{opacity:0;transform:translateY(-6px)}}
+.feed li .fi{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;color:#fff}
+.feed li .fi .ic{width:16px;height:16px}
+.feed li small{display:block;color:rgba(255,255,255,.55);font-size:11.5px;margin-top:2px}
+body.tv .rail,body.tv .top .hide-tv{display:none}
+body.tv .app{grid-template-columns:minmax(0,1fr)}
+body.tv .main{max-width:none;padding:24px 36px}
+body.tv .camps{grid-template-columns:repeat(auto-fill,minmax(420px,1fr))}
+body.tv .board{grid-template-columns:minmax(0,1fr) 440px}
+
+/* ---------- Werkzeuge ---------- */
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.search{display:flex;align-items:center;gap:8px;background:#fff;color:var(--ink);border-radius:999px;padding:10px 16px;flex:1;min-width:220px}
+.search input{border:0;outline:0;flex:1;min-width:0;background:none}
+.fchip{padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.25);font-size:13px;font-weight:700;white-space:nowrap}
+.fchip.on{background:var(--lime);color:var(--lime-ink);border-color:var(--lime)}
+.fchips{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- Kontaktprofil ---------- */
+.prof{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:18px;align-items:start}
+.prof>div>.card+.card{margin-top:16px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;margin:8px 0 0;font-size:14px}
+.kv dt{color:var(--soft)}.kv dd{margin:0;font-weight:600;min-width:0;overflow-wrap:anywhere}
+.chrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;flex-wrap:wrap}
+.chrow:last-child{border-bottom:0}
+.chrow .v{flex:1;min-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--soft)}
+.mem{display:flex;gap:10px;padding:10px 12px;border-radius:14px;background:var(--wash);margin-top:8px;font-size:14px;align-items:flex-start}
+.mem .ic{color:var(--plum);margin-top:1px}
+.mem small{display:block;color:var(--soft);font-size:12px}
+.plan{display:flex;gap:12px;padding:12px;border-radius:16px;border:1.5px dashed #C9B3C3;margin-top:8px;align-items:flex-start}
+.plan .when{flex:none;min-width:84px;text-align:center;background:var(--plum);color:#fff;border-radius:12px;padding:6px 8px;font-weight:800;font-size:13px;line-height:1.2}
+.plan .when small{display:block;font-weight:600;font-size:11px;opacity:.8}
+.plan b{display:block;font-size:14px}
+.plan .muted{font-size:12.5px;margin-top:2px}
+.hist{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 12px}
+.hist div{background:var(--wash);border-radius:14px;padding:10px}
+.hist b{display:block;color:var(--plum);font-size:16px;font-family:var(--num);line-height:1.2}
+.hist span{font-size:11.5px;color:var(--soft)}
+.mods{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.mod{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:#DDF1C9;color:#1d4600}
+.mod.no{background:#F1EEF3;color:#8B8292}
+.ordrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.ordrow:last-child{border-bottom:0}
+.ordrow span:last-child{white-space:nowrap;color:var(--soft)}
+.tl{position:relative;padding-left:26px}
+.tl::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.ev{position:relative;margin-bottom:14px}
+.ev .dot{position:absolute;left:-26px;top:4px;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;color:#fff;border:3px solid #fff}
+.ev .dot .ic{width:10px;height:10px;stroke-width:3}
+.ev .meta{font-size:12px;color:var(--soft);display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ev .bub{margin-top:5px;padding:11px 14px;border-radius:16px;font-size:14px;max-width:640px}
+.ev.out .bub{background:var(--wash)}
+.ev.in .bub{background:#EAF4DD}
+.ev.sys .bub{background:none;padding:2px 0;font-weight:700;color:var(--plum);font-size:13px}
+.ev.human .bub{background:#E3EEFA}
+.delay{display:inline-flex;gap:4px;align-items:center;font-size:11.5px;font-weight:700;color:#0b2a4a;background:#D9E8F8;padding:2px 8px;border-radius:999px}
+.delay .ic{width:12px;height:12px}
+.shotbtn{display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:700;color:var(--plum);padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:#fff}
+.shotbtn .ic{width:14px;height:14px}
+.dncbox{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:18px;background:#FBE3E3;color:#7a0d0d;font-weight:700;margin-bottom:16px}
+.freq{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.freq div{background:var(--wash);border-radius:14px;padding:10px}
+.freq b{display:block;color:var(--plum);font-size:14px}
+.freq span{font-size:11.5px;color:var(--soft)}
+.dialog{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:#DDF1C9;color:#1d4600;font-size:13px;font-weight:700;margin-top:10px}
+
+/* ---------- Posteingang / Senden ---------- */
+.inbox{display:grid;grid-template-columns:360px minmax(0,1fr);gap:18px;align-items:start}
+.thr{background:#fff;color:var(--ink);border-radius:18px;padding:14px;cursor:pointer;border:2px solid transparent}
+.thr.on{border-color:var(--lime)}
+.why{display:inline-flex;gap:6px;align-items:center;font-size:12px;font-weight:700;color:#8a1010;background:#FBE3E3;padding:3px 9px;border-radius:999px;margin-top:6px}
+.why .ic{width:13px;height:13px}
+.reply{display:flex;flex-direction:column;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.reply textarea{width:100%;min-height:96px;border:1px solid var(--line);border-radius:14px;padding:12px;resize:vertical;color:var(--ink)}
+.reply .r{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.obar{position:sticky;top:10px;z-index:5;display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#fff;color:var(--ink);border-radius:999px;padding:8px 8px 8px 16px;box-shadow:0 18px 40px -20px rgba(0,0,0,.7);margin-bottom:12px}
+.obar .cnt{font-weight:800;color:var(--plum);flex:1;min-width:150px}
+.cb{width:22px;height:22px;border-radius:7px;border:2px solid var(--plum);display:grid;place-items:center;flex:none;background:#fff;color:#fff}
+.cb.on{background:var(--plum)}
+.cb .ic{width:14px;height:14px;stroke-width:3}
+.orow{background:#fff;color:var(--ink);border-radius:20px;padding:14px 16px;display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;gap:14px;align-items:center;cursor:pointer;border:2px solid transparent}
+.orow.on{border-color:var(--plum)}
+.orow .t{font-weight:800}
+.orow .s{font-size:12.5px;color:var(--soft)}
+.orow .tx{font-size:13.5px;margin-top:4px;color:#3d3644;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.orow.sent{background:rgba(255,255,255,.9);cursor:default}
+.orow .when{font-size:12px;color:var(--soft);text-align:right;white-space:nowrap}
+
+/* ---------- Formulare ---------- */
+.fsec{background:#fff;color:var(--ink);border-radius:24px;padding:20px;margin-bottom:14px}
+.fsec h3{margin:0 0 4px;color:var(--plum);font-size:16px;display:flex;gap:8px;align-items:center}
+.fsec .h{color:var(--soft);font-size:13px;margin:0 0 12px}
+.fsec label.l{display:block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin:10px 0 6px}
+.fsec input[type=text],.fsec input[type=number],.fsec input[type=date],.fsec select,.fsec textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:11px 13px;background:#fff;color:var(--ink)}
+.fsec textarea{min-height:110px;resize:vertical}
+.pick{display:flex;flex-wrap:wrap;gap:8px}
+.pk{padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);font-size:13px;font-weight:700;color:var(--plum);background:#fff}
+.pk.on{background:var(--plum);color:#fff;border-color:var(--plum)}
+.pkcat{font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin:12px 0 6px}
+.chtbl{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px 12px;align-items:center}
+.seg{display:inline-flex;background:var(--wash);border-radius:999px;padding:3px}
+.seg button{padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;color:var(--soft)}
+.seg button.on.p{background:var(--ok);color:#fff}.seg button.on.a{background:#fff;color:var(--plum);box-shadow:0 2px 6px rgba(0,0,0,.12)}.seg button.on.f{background:#C2463F;color:#fff}
+.opt{display:flex;gap:12px;padding:14px;border-radius:16px;border:1.5px solid var(--line);cursor:pointer;margin-bottom:8px;align-items:flex-start}
+.opt.on{border-color:var(--plum);background:var(--wash)}
+.opt b{display:block;color:var(--plum)}
+.opt .muted{margin-top:2px}
+.radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--plum);flex:none;margin-top:2px;display:grid;place-items:center}
+.opt.on .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--plum)}
+.sub2{margin:10px 0 0 32px;padding:12px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.note{display:flex;gap:10px;padding:12px 14px;border-radius:14px;background:#FFF4D6;color:#5a3c00;font-size:13px;margin-top:8px}
+.note .ic{flex:none;margin-top:1px}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:7px 0;font-size:14px}
+.chk input{margin-top:3px;accent-color:var(--plum);width:16px;height:16px;flex:none}
+.formbar{position:sticky;bottom:16px;display:flex;justify-content:flex-end;gap:10px;padding:12px;border-radius:999px;background:rgba(18,0,14,.75);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14)}
+
+/* ---------- Kanäle / MCP / Regeln ---------- */
+.chcard{display:flex;gap:14px;align-items:flex-start}
+.chcard .big{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;color:#fff;flex:none}
+.chcard .big .ic{width:24px;height:24px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);padding:8px 10px;border-bottom:1px solid var(--line)}
+.tbl td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl code{font-family:Consolas,monospace;font-size:13px;color:var(--plum);background:var(--wash);padding:2px 6px;border-radius:6px;white-space:nowrap}
+.rule{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.rule:last-child{border-bottom:0}
+.rule>.ic{color:var(--plum);margin-top:2px}
+.rule b{display:block}
+.arch{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:stretch;margin-top:6px}
+.arch div{background:var(--wash);border-radius:16px;padding:12px;font-size:13px;text-align:center}
+.arch b{display:block;color:var(--plum);margin-bottom:4px}
+.pauses{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.pause{background:#fff;color:var(--ink);border-radius:22px;padding:16px 18px;display:flex;gap:14px;align-items:center}
+.pause .tile{background:var(--plum);color:var(--lime)}
+.pause.upd .tile{background:#0F4C81;color:#fff}
+.pause b{display:block;font-family:var(--num);font-size:26px;color:var(--plum);line-height:1.1}
+/* Kampagnenziele */
+.purps{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.purp{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:18px;border:1.5px solid var(--line);cursor:pointer;background:#fff;text-align:left}
+.purp .tile{width:40px;height:40px;border-radius:12px;background:var(--wash);color:var(--plum)}
+.purp .tile .ic{width:20px;height:20px}
+.purp b{display:block;color:var(--plum);font-size:14px;line-height:1.25}
+.purp span{font-size:12px;color:var(--soft)}
+.purp.on{border-color:var(--plum);background:var(--wash)}
+.purp.on .tile{background:var(--plum);color:var(--lime)}
+.explain{background:#F4F8DC;border-radius:18px;padding:16px;margin:4px 0 12px;font-size:14px;color:#2f3600}
+.explain b{color:var(--lime-ink)}
+.explain ol{margin:8px 0 0;padding-left:20px}.explain li{margin:4px 0}
+.inl{display:flex;gap:8px;margin-top:8px}.inl input{flex:1;min-width:0}
+.vpool{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+.vpool div{background:var(--wash);border-radius:14px;padding:10px}
+.vpool b{display:block;font-family:var(--num);font-size:20px;color:var(--plum);line-height:1.1}
+.vpool span{font-size:11.5px;color:var(--soft)}
+.vcodes{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.vcode{font-family:Consolas,monospace;font-size:12.5px;padding:4px 9px;border-radius:8px;background:#F4F8DC;color:#2f3600;border:1px dashed #C9D27A}
+.vcode.used{background:#EEE9F0;color:#8B8292;text-decoration:line-through;border-color:#D6CFDA}
+.vleft{display:inline-flex;gap:5px;align-items:center;font-weight:800;color:#5a3c00;background:#FFE7AE;padding:3px 9px;border-radius:999px}
+/* E-Mail im HTML-Design */
+.mail{background:#F2EEF1;padding:14px;border-radius:14px}
+.mail .mw{max-width:520px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;font-size:14px;color:#241F2C;box-shadow:0 6px 18px -10px rgba(0,0,0,.3)}
+.mail .mh2{background:#5E0047;color:#fff;padding:12px 18px;font-weight:800;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:center}
+.mail .mh2 small{color:#C6D63F;font-weight:700;letter-spacing:.1em}
+.mail .himg{height:110px;background:radial-gradient(120px 80px at 75% 40%,#C6D63F 0%,transparent 70%),linear-gradient(135deg,#8C1D6E,#3C0033);display:flex;align-items:flex-end;padding:12px 18px;color:#fff;font-weight:800;font-size:20px;line-height:1.15}
+.mail .mb{padding:16px 18px}
+.mail .mbtn{display:inline-block;margin-top:12px;background:#C6D63F;color:#26001D;font-weight:800;padding:10px 18px;border-radius:999px}
+.mail .mf{padding:10px 18px;font-size:11px;color:#8B8292;border-top:1px solid #eee}
+.tcard .mail{padding:8px;max-height:150px;overflow:hidden;pointer-events:none}
+.tcard .mail .mw{transform:scale(.62);transform-origin:top left;width:161%}
+.tabs{display:flex;gap:6px;margin:6px 0 12px;flex-wrap:wrap}
+.tabs button{padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;border:1px solid var(--line);color:var(--plum)}
+.tabs button.on{background:var(--plum);color:#fff;border-color:var(--plum)}
+.code{width:100%;min-height:220px;font-family:Consolas,monospace;font-size:12px;border:1px solid var(--line);border-radius:12px;padding:10px;color:var(--ink);background:#FBFAFC}
+.mform label.l{display:block;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin:10px 0 6px}
+.mform input,.mform select,.mform textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--ink);background:#fff}
+.mform textarea{min-height:90px}
+
+/* ---------- Screenshot-Modal ---------- */
+.modal{position:fixed;inset:0;background:rgba(18,0,14,.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.modal.on{display:flex}
+.mbox{background:#fff;color:var(--ink);border-radius:26px;padding:20px;width:min(760px,100%);max-height:92vh;overflow:auto}
+.mbox .mh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.mbox .mh b{color:var(--plum);font-size:17px;display:flex;gap:8px;align-items:center}
+.shot{border-radius:18px;overflow:hidden;border:1px solid #ddd;box-shadow:0 14px 30px -18px rgba(0,0,0,.4)}
+.shot .bar2{display:flex;align-items:center;gap:8px;padding:10px 14px;color:#fff;font-weight:700;font-size:14px}
+.shot .body{padding:16px;min-height:160px}
+.wa .bar2{background:#075E54}.wa .body{background:#ECE5DD}
+.wa .msg{background:#DCF8C6;border-radius:10px 2px 10px 10px;padding:9px 12px;max-width:80%;margin-left:auto;font-size:14px;box-shadow:0 1px 1px rgba(0,0,0,.12)}
+.wa .msg small{display:block;text-align:right;color:#6b7b6b;font-size:11px;margin-top:3px}
+.em .bar2{background:#0F4C81}.em .body{background:#fff;font-size:14px}
+.em .hdr{border-bottom:1px solid #eee;padding-bottom:10px;margin-bottom:12px;font-size:13px;color:#555}
+.li .bar2{background:#0A66C2}.li .body{background:#F3F2EF}
+.li .msg,.ig .msg,.yt .msg,.pu .msg{background:#fff;border-radius:14px;padding:12px 14px;font-size:14px;max-width:85%}
+.ig .bar2{background:linear-gradient(90deg,#833AB4,#C13584,#F77737)}.ig .body{background:#fafafa}
+.ig .msg{background:#3797F0;color:#fff;margin-left:auto;border-radius:18px}
+.yt .bar2{background:#E62117}.yt .body{background:#fff}
+.yt .msg{border:1px solid #eee}
+.pu .bar2{background:var(--plum)}.pu .body{background:linear-gradient(180deg,#3C0033,#12000E)}
+.pu .msg{border-radius:18px}
+.evid{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px;margin-top:14px}
+.evid dt{color:var(--soft)}.evid dd{margin:0;font-weight:600;overflow-wrap:anywhere}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(30px);opacity:0;background:var(--lime);color:var(--lime-ink);padding:12px 20px;border-radius:999px;font-weight:800;font-size:14px;z-index:120;transition:all .25s var(--ease);box-shadow:0 14px 30px -10px rgba(0,0,0,.6);max-width:calc(100vw - 32px);text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:1300px){.board{grid-template-columns:minmax(0,1fr)}.feed{position:static;max-height:420px}.kband{grid-template-columns:repeat(3,minmax(0,1fr))}.arch{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:980px){.prof,.inbox,.g2,.g3,.pauses{grid-template-columns:minmax(0,1fr)}.ccard{grid-template-columns:minmax(0,1fr) auto}.ccard .mid{display:none}.chtbl{grid-template-columns:minmax(0,1fr) auto}.chtbl .tp{grid-column:1/-1;margin-bottom:6px}}
+@media (max-width:640px){
+  html,body{overflow-x:clip}
+  .app{grid-template-columns:minmax(0,1fr)}
+  .rail{position:fixed;top:auto;bottom:0;left:0;right:0;height:auto;flex-direction:row;padding:6px 8px;overflow-x:auto;border-right:0;border-top:1px solid rgba(255,255,255,.1)}
+  .brand,.rail .sep{display:none}.nav{width:76px;flex:none;font-size:10px;padding:6px 2px}.nav .ic{width:22px;height:22px}.nav .bdg{right:10px}
+  .main{padding:14px 16px 110px}.main *{min-width:0}
+  .hero{padding:20px 18px;border-radius:22px}.hero h1{font-size:28px}.hero .acts .btn{flex:1 1 100%;justify-content:center}
+  .kband{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .v{font-size:26px}
+  .camps,.gcards,.tcards{grid-template-columns:minmax(0,1fr)}
+  .top .hide-m{display:none}
+  .funnel b{font-size:16px}
+  .freq,.hist{grid-template-columns:minmax(0,1fr)}
+  .arch{grid-template-columns:minmax(0,1fr)}
+  .tbl{font-size:13px}.tbl td,.tbl th{padding:8px 6px}
+  .ccard{border-radius:22px}
+  .orow{grid-template-columns:auto minmax(0,1fr)}.orow .chi{display:none}.orow .when{grid-column:2;text-align:left}
+  .obar{border-radius:20px}
+  .formbar{border-radius:20px;flex-wrap:wrap}.formbar .btn{flex:1;justify-content:center}
+  .sub2{margin-left:0}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="rail" id="rail"></nav>
+  <main class="main" id="main"></main>
+</div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="mbox" id="mbox"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+// Icons: Lucide (lucide.dev, ISC-Lizenz)
+const I={"archive": "<rect width=\"20\" height=\"5\" x=\"2\" y=\"3\" rx=\"1\" /> <path d=\"M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8\" /> <path d=\"M10 12h4\" />", "arrow-right-left": "<path d=\"m16 3 4 4-4 4\" /> <path d=\"M20 7H4\" /> <path d=\"m8 21-4-4 4-4\" /> <path d=\"M4 17h16\" />", "ban": "<circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"m4.9 4.9 14.2 14.2\" />", "bell": "<path d=\"M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9\" /> <path d=\"M10.3 21a1.94 1.94 0 0 0 3.4 0\" />", "bot": "<path d=\"M12 8V4H8\" /> <rect width=\"16\" height=\"12\" x=\"4\" y=\"8\" rx=\"2\" /> <path d=\"M2 14h2\" /> <path d=\"M20 14h2\" /> <path d=\"M15 13v2\" /> <path d=\"M9 13v2\" />", "brain": "<path d=\"M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z\" /> <path d=\"M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z\" /> <path d=\"M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4\" /> <path d=\"M17.599 6.5a3 3 0 0 0 .399-1.375\" /> <path d=\"M6.003 5.125A3 3 0 0 0 6.401 6.5\" /> <path d=\"M3.477 10.896a4 4 0 0 1 .585-.396\" /> <path d=\"M19.938 10.5a4 4 0 0 1 .585.396\" /> <path d=\"M6 18a4 4 0 0 1-1.967-.516\" /> <path d=\"M19.967 17.484A4 4 0 0 1 18 18\" />", "calendar-clock": "<path d=\"M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5\" /> <path d=\"M16 2v4\" /> <path d=\"M8 2v4\" /> <path d=\"M3 10h5\" /> <path d=\"M17.5 17.5 16 16.3V14\" /> <circle cx=\"16\" cy=\"16\" r=\"6\" />", "camera": "<path d=\"M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z\" /> <circle cx=\"12\" cy=\"13\" r=\"3\" />", "check": "<path d=\"M20 6 9 17l-5-5\" />", "chevron-left": "<path d=\"m15 18-6-6 6-6\" />", "chevron-right": "<path d=\"m9 18 6-6-6-6\" />", "circle-alert": "<circle cx=\"12\" cy=\"12\" r=\"10\" /> <line x1=\"12\" x2=\"12\" y1=\"8\" y2=\"12\" /> <line x1=\"12\" x2=\"12.01\" y1=\"16\" y2=\"16\" />", "clock": "<circle cx=\"12\" cy=\"12\" r=\"10\" /> <polyline points=\"12 6 12 12 16 14\" />", "contact": "<path d=\"M16 2v2\" /> <path d=\"M7 22v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2\" /> <path d=\"M8 2v2\" /> <circle cx=\"12\" cy=\"11\" r=\"3\" /> <rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\" />", "eye": "<path d=\"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0\" /> <circle cx=\"12\" cy=\"12\" r=\"3\" />", "filter": "<polygon points=\"22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3\" />", "hand": "<path d=\"M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2\" /> <path d=\"M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2\" /> <path d=\"M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8\" /> <path d=\"M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15\" />", "headset": "<path d=\"M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z\" /> <path d=\"M21 16v2a4 4 0 0 1-4 4h-5\" />", "heart": "<path d=\"M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z\" />", "image": "<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" ry=\"2\" /> <circle cx=\"9\" cy=\"9\" r=\"2\" /> <path d=\"m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21\" />", "inbox": "<polyline points=\"22 12 16 12 14 15 10 15 8 12 2 12\" /> <path d=\"M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z\" />", "instagram": "<rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\" /> <path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\" /> <line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\" />", "layout-dashboard": "<rect width=\"7\" height=\"9\" x=\"3\" y=\"3\" rx=\"1\" /> <rect width=\"7\" height=\"5\" x=\"14\" y=\"3\" rx=\"1\" /> <rect width=\"7\" height=\"9\" x=\"14\" y=\"12\" rx=\"1\" /> <rect width=\"7\" height=\"5\" x=\"3\" y=\"16\" rx=\"1\" />", "link": "<path d=\"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71\" /> <path d=\"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71\" />", "linkedin": "<path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z\" /> <rect width=\"4\" height=\"12\" x=\"2\" y=\"9\" /> <circle cx=\"4\" cy=\"4\" r=\"2\" />", "list-checks": "<path d=\"m3 17 2 2 4-4\" /> <path d=\"m3 7 2 2 4-4\" /> <path d=\"M13 6h8\" /> <path d=\"M13 12h8\" /> <path d=\"M13 18h8\" />", "mail": "<rect width=\"20\" height=\"16\" x=\"2\" y=\"4\" rx=\"2\" /> <path d=\"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7\" />", "maximize": "<path d=\"M8 3H5a2 2 0 0 0-2 2v3\" /> <path d=\"M21 8V5a2 2 0 0 0-2-2h-3\" /> <path d=\"M3 16v3a2 2 0 0 0 2 2h3\" /> <path d=\"M16 21h3a2 2 0 0 0 2-2v-3\" />", "megaphone": "<path d=\"m3 11 18-5v12L3 14v-3z\" /> <path d=\"M11.6 16.8a3 3 0 1 1-5.8-1.6\" />", "message-circle": "<path d=\"M7.9 20A9 9 0 1 0 4 16.1L2 22Z\" />", "message-square-text": "<path d=\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\" /> <path d=\"M13 8H7\" /> <path d=\"M17 12H7\" />", "pause": "<rect x=\"14\" y=\"4\" width=\"4\" height=\"16\" rx=\"1\" /> <rect x=\"6\" y=\"4\" width=\"4\" height=\"16\" rx=\"1\" />", "percent": "<line x1=\"19\" x2=\"5\" y1=\"5\" y2=\"19\" /> <circle cx=\"6.5\" cy=\"6.5\" r=\"2.5\" /> <circle cx=\"17.5\" cy=\"17.5\" r=\"2.5\" />", "phone": "<path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\" />", "play": "<polygon points=\"6 3 20 12 6 21 6 3\" />", "plug": "<path d=\"M12 22v-5\" /> <path d=\"M9 8V2\" /> <path d=\"M15 8V2\" /> <path d=\"M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z\" />", "plus": "<path d=\"M5 12h14\" /> <path d=\"M12 5v14\" />", "refresh-cw": "<path d=\"M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8\" /> <path d=\"M21 3v5h-5\" /> <path d=\"M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16\" /> <path d=\"M8 16H3v5\" />", "repeat": "<path d=\"m17 2 4 4-4 4\" /> <path d=\"M3 11v-1a4 4 0 0 1 4-4h14\" /> <path d=\"m7 22-4-4 4-4\" /> <path d=\"M21 13v1a4 4 0 0 1-4 4H3\" />", "search": "<circle cx=\"11\" cy=\"11\" r=\"8\" /> <path d=\"m21 21-4.3-4.3\" />", "send": "<path d=\"M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z\" /> <path d=\"m21.854 2.147-10.94 10.939\" />", "settings": "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\" /> <circle cx=\"12\" cy=\"12\" r=\"3\" />", "shield-check": "<path d=\"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z\" /> <path d=\"m9 12 2 2 4-4\" />", "smartphone": "<rect width=\"14\" height=\"20\" x=\"5\" y=\"2\" rx=\"2\" ry=\"2\" /> <path d=\"M12 18h.01\" />", "sparkles": "<path d=\"M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z\" /> <path d=\"M20 3v4\" /> <path d=\"M22 5h-4\" /> <path d=\"M4 17v2\" /> <path d=\"M5 18H3\" />", "tag": "<path d=\"M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z\" /> <circle cx=\"7.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\" />", "target": "<circle cx=\"12\" cy=\"12\" r=\"10\" /> <circle cx=\"12\" cy=\"12\" r=\"6\" /> <circle cx=\"12\" cy=\"12\" r=\"2\" />", "trending-up": "<polyline points=\"22 7 13.5 15.5 8.5 10.5 2 17\" /> <polyline points=\"16 7 22 7 22 13\" />", "user-check": "<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /> <circle cx=\"9\" cy=\"7\" r=\"4\" /> <polyline points=\"16 11 18 13 22 9\" />", "user-round": "<circle cx=\"12\" cy=\"8\" r=\"5\" /> <path d=\"M20 21a8 8 0 0 0-16 0\" />", "users": "<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /> <circle cx=\"9\" cy=\"7\" r=\"4\" /> <path d=\"M22 21v-2a4 4 0 0 0-3-3.87\" /> <path d=\"M16 3.13a4 4 0 0 1 0 7.75\" />", "x": "<path d=\"M18 6 6 18\" /> <path d=\"m6 6 12 12\" />", "youtube": "<path d=\"M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17\" /> <path d=\"m10 15 5-3-5-3z\" />", "zap": "<path d=\"M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z\" />", "building-2": "<path d=\"M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z\" /> <path d=\"M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2\" /> <path d=\"M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2\" /> <path d=\"M10 6h4\" /> <path d=\"M10 10h4\" /> <path d=\"M10 14h4\" /> <path d=\"M10 18h4\" />", "calendar-days": "<path d=\"M8 2v4\" /> <path d=\"M16 2v4\" /> <rect width=\"18\" height=\"18\" x=\"3\" y=\"4\" rx=\"2\" /> <path d=\"M3 10h18\" /> <path d=\"M8 14h.01\" /> <path d=\"M12 14h.01\" /> <path d=\"M16 14h.01\" /> <path d=\"M8 18h.01\" /> <path d=\"M12 18h.01\" /> <path d=\"M16 18h.01\" />", "circle-check": "<circle cx=\"12\" cy=\"12\" r=\"10\" /> <path d=\"m9 12 2 2 4-4\" />", "circle-dashed": "<path d=\"M10.1 2.182a10 10 0 0 1 3.8 0\" /> <path d=\"M13.9 21.818a10 10 0 0 1-3.8 0\" /> <path d=\"M17.609 3.721a10 10 0 0 1 2.69 2.7\" /> <path d=\"M2.182 13.9a10 10 0 0 1 0-3.8\" /> <path d=\"M20.279 17.609a10 10 0 0 1-2.7 2.69\" /> <path d=\"M21.818 10.1a10 10 0 0 1 0 3.8\" /> <path d=\"M3.721 6.391a10 10 0 0 1 2.7-2.69\" /> <path d=\"M6.391 20.279a10 10 0 0 1-2.69-2.7\" />", "circle-pause": "<circle cx=\"12\" cy=\"12\" r=\"10\" /> <line x1=\"10\" x2=\"10\" y1=\"15\" y2=\"9\" /> <line x1=\"14\" x2=\"14\" y1=\"15\" y2=\"9\" />", "circle-play": "<circle cx=\"12\" cy=\"12\" r=\"10\" /> <polygon points=\"10 8 16 12 10 16 10 8\" />", "database": "<ellipse cx=\"12\" cy=\"5\" rx=\"9\" ry=\"3\" /> <path d=\"M3 5V19A9 3 0 0 0 21 19V5\" /> <path d=\"M3 12A9 3 0 0 0 21 12\" />", "file-text": "<path d=\"M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z\" /> <path d=\"M14 2v4a2 2 0 0 0 2 2h4\" /> <path d=\"M10 9H8\" /> <path d=\"M16 13H8\" /> <path d=\"M16 17H8\" />", "history": "<path d=\"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8\" /> <path d=\"M3 3v5h5\" /> <path d=\"M12 7v5l4 2\" />", "hourglass": "<path d=\"M5 22h14\" /> <path d=\"M5 2h14\" /> <path d=\"M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22\" /> <path d=\"M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2\" />", "languages": "<path d=\"m5 8 6 6\" /> <path d=\"m4 14 6-6 2-3\" /> <path d=\"M2 5h12\" /> <path d=\"M7 2h1\" /> <path d=\"m22 22-5-10-5 10\" /> <path d=\"M14 18h6\" />", "shopping-cart": "<circle cx=\"8\" cy=\"21\" r=\"1\" /> <circle cx=\"19\" cy=\"21\" r=\"1\" /> <path d=\"M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12\" />", "snowflake": "<line x1=\"2\" x2=\"22\" y1=\"12\" y2=\"12\" /> <line x1=\"12\" x2=\"12\" y1=\"2\" y2=\"22\" /> <path d=\"m20 16-4-4 4-4\" /> <path d=\"m4 8 4 4-4 4\" /> <path d=\"m16 4-4 4-4-4\" /> <path d=\"m8 20 4-4 4 4\" />", "square-check": "<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" /> <path d=\"m9 12 2 2 4-4\" />", "square": "<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\" />", "ticket-percent": "<path d=\"M2 9a3 3 0 1 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 1 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z\" /> <path d=\"M9 9h.01\" /> <path d=\"m15 9-6 6\" /> <path d=\"M15 15h.01\" />", "timer": "<line x1=\"10\" x2=\"14\" y1=\"2\" y2=\"2\" /> <line x1=\"12\" x2=\"15\" y1=\"14\" y2=\"11\" /> <circle cx=\"12\" cy=\"14\" r=\"8\" />", "user-plus": "<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /> <circle cx=\"9\" cy=\"7\" r=\"4\" /> <line x1=\"19\" x2=\"19\" y1=\"8\" y2=\"14\" /> <line x1=\"22\" x2=\"16\" y1=\"11\" y2=\"11\" />"};
+const ic=(n,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24">${I[n]||''}</svg>`;
+
+/* ===================== Demo-Daten ===================== */
+const TODAY=new Date(2026,10,1,10,30);
+const pad=n=>String(n).padStart(2,'0');
+const agoTxt=d=>d===0?'heute':d===1?'gestern':d===-1?'morgen':d<0?`in ${-d} Tagen`:`vor ${d} Tagen`;
+const dday=d=>{const x=new Date(TODAY);x.setDate(x.getDate()-d);return `${pad(x.getDate())}.${pad(x.getMonth()+1)}.${x.getFullYear()}`};
+const dt=(d,t='')=>`${dday(d)}${t?', '+t:''} (${agoTxt(d)})`;
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+const fmt=n=>n.toLocaleString('de-AT');
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+
+// Kanäle: [Name, Icon, Farbe, Screenshot-Stil, Status]
+const CH={
+  email:['E-Mail','mail','#3B82C4','em','verbunden'],
+  whatsapp:['WhatsApp','message-circle','#25A35A','wa','verbunden'],
+  linkedin:['LinkedIn','linkedin','#0A66C2','li','verbunden'],
+  instagram:['Instagram','instagram','#C13584','ig','verbunden'],
+  youtube:['YouTube-Kommentar','youtube','#E62117','yt','verbunden'],
+  social:['Social-Media-Post','megaphone','#8C1D6E','ig','verbunden'],
+  push:['App-Push (GEN(e)IUS)','smartphone','#5E0047','pu','verbunden'],
+  call:['Anruf','phone','#8A8291','em','später'],
+  chat:['Web-Chat','message-square-text','#8A8291','em','später']
+};
+const chi=k=>`<span class="chi" style="background:${CH[k][2]}" title="${CH[k][0]}">${ic(CH[k][1])}</span>`;
+
+// Kampagnenarten mit eigener Kontaktpause
+const TYPES={werbung:{name:'Werbung',icon:'megaphone',pause:7,desc:'Verkauf, Upsell, Angebote'},update:{name:'Wichtiges Update',icon:'bell',pause:0,desc:'z. B. geänderte Rezeptur, Lieferinfo, Rückruf'}};
+
+// Ziele (Zweck) einer Kampagne
+const PURP={
+  find:['Neue Leads finden','user-plus','Agent recherchiert Personen und legt sie als Kontakte an'],
+  lead_res:['Leads zu Resellern machen','building-2','Interessenten als Vertriebspartner gewinnen'],
+  lead_end:['Leads zu Endkunden machen','shopping-cart','Interessenten zum ersten Kauf führen'],
+  upsell:['Endkunden zum Upsell bewegen','trending-up','Bestehenden Kunden ein weiteres Produkt anbieten'],
+  keep_end:['Endkunden bei Laune halten','heart','Informieren, Erfahrungen erfragen, Bindung stärken'],
+  keep_res:['Reseller bei Laune halten','heart','Partner informieren, befragen, wertschätzen'],
+  act_res:['Reseller zum Verkaufsstart aktivieren','zap','Neue Partner zum ersten Verkauf bringen']
+};
+const PFUN={find:['gefunden','geprüft','angelegt','verworfen']};
+const CHECKS=['OrderManager: Bestellung mit Produkt nach Erstkontakt','OrderManager: Abo-Verlängerung','OrderManager: erste Bestellung über Partner-Shop','NovoPilot: Partnervertrag unterschrieben','Kalender Vertrieb: Termin','Antwort des Kontakts (keine Datenbank)'];
+
+// Zielgruppen in 4 Kategorien
+const GCATS=[['kunden','Bestehende Kunden','user-check'],['reseller','Bestehende Reseller','building-2'],['kalt-end','Kaltakquise: Endkunden','snowflake'],['kalt-res','Kaltakquise: Reseller','user-plus']];
+const GROUPS=[
+  {id:'nd-end',cat:'kunden',name:'NovoDaily Endkunden',n:4812,grow:38,src:'OrderManager – Bestellungen NovoDaily',auto:'täglicher Abgleich neuer Bestellungen'},
+  {id:'all-end',cat:'kunden',name:'Alle Endkunden',n:9640,grow:61,src:'OrderManager – alle Marken',auto:'täglicher Abgleich'},
+  {id:'abo',cat:'kunden',name:'Lifestyle+ Abo-Kunden',n:1310,grow:22,src:'OrderManager – aktive Abos',auto:'täglicher Abgleich'},
+  {id:'nd-res',cat:'reseller',name:'NovoDaily Reseller',n:214,grow:3,src:'NovoPilot – Partnerliste',auto:'bei neuer Partner-Registrierung'},
+  {id:'hl-res',cat:'reseller',name:'Hartlauer Reseller',n:163,grow:0,src:'Hartlauer Filialliste',auto:'manuell'},
+  {id:'web-int',cat:'kalt-end',name:'Website-Interessenten ohne Kauf',n:1120,grow:44,src:'Newsletter & Gen-Quiz novodaily.com (mit Einwilligung)',auto:'bei jeder Anmeldung'},
+  {id:'ig-int',cat:'kalt-end',name:'Instagram-Interessenten',n:530,grow:31,src:'Kommentare & Nachrichten an @novodaily',auto:'Agent erfasst Personen, die von sich aus schreiben'},
+  {id:'web-res',cat:'kalt-res',name:'Reseller-Anfragen Website',n:87,grow:6,src:'Kontaktformular novogenia.com',auto:'automatisch bei jeder Anfrage'},
+  {id:'li-hm',cat:'kalt-res',name:'LinkedIn Health Manager',n:1290,grow:120,src:'Agent-Recherche LinkedIn',auto:'Agent sucht laufend (BGM, HR-Health, Corporate Wellbeing)'},
+  {id:'infl',cat:'kalt-res',name:'Social Media Health Influencer',n:342,grow:57,src:'Agent-Recherche Instagram & YouTube',auto:'Agent sucht laufend (Gesundheit, Fitness, Ernährung, DACH)'}
+];
+const G=id=>GROUPS.find(g=>g.id===id);
+
+// Vorlagen – Kampagnen verweisen darauf. {{…}} = Platzhalter, je Kontakt befüllt
+const TPL=[
+ {id:'t-perf-mail',name:'Performance Plus – Erstansprache',ch:'email',anrede:'Du',subj:'Dein Training, deine Gene – jetzt mit Performance Plus',text:'Hallo {{Vorname}}, {{Bezug_auf_Ziel}} Mit Performance Plus werten wir deine vorhandenen DNA-Daten zusätzlich für Ausdauer, Regeneration und Verletzungsrisiko aus – ohne neue Speichelprobe. Mit dem Gutscheincode {{Gutscheincode}} sparst du bis {{Gültig_bis}} {{Rabatt}}. Dein persönlicher Link: {{Kauflink}}',used:1210,upd:12},
+ {id:'t-perf-rem',name:'Performance Plus – Erinnerung',ch:'email',anrede:'Du',subj:'Nur noch bis Sonntag: {{Rabatt}} auf Performance Plus',text:'Hallo {{Vorname}}, kurze Erinnerung: Dein Gutscheincode {{Gutscheincode}} gilt noch bis {{Gültig_bis}}. Performance Plus nutzt deine vorhandenen DNA-Daten – du musst nichts einschicken. {{Kauflink}}',used:0,upd:12},
+ {id:'t-perf-push',name:'Performance Plus – Push',ch:'push',anrede:'Du',subj:'',text:'{{Vorname}}, neu für dich: Performance Plus – ohne neue Probe. Code {{Gutscheincode}} = {{Rabatt}} bis {{Gültig_bis}}.',used:380,upd:12},
+ {id:'t-perf-wa',name:'Performance Plus – WhatsApp',ch:'whatsapp',anrede:'Du',subj:'',text:'Hallo {{Vorname}}! Mit Performance Plus werten wir deine vorhandenen DNA-Daten für Training und Regeneration aus – ohne neue Probe. Code {{Gutscheincode}}: {{Rabatt}} bis {{Gültig_bis}}. {{Kauflink}}',used:40,upd:12,meta:'von Meta freigegeben'},
+ {id:'t-nutri-push',name:'NutriMix – neue Rezeptur (Push)',ch:'push',anrede:'Du',subj:'',text:'{{Vorname}}, ab heute ist deine NutriMix-Mischung verbessert: mehr Vitamin D3, Magnesium in besser verträglicher Form. Für dich ändert sich nichts – Lieferung wie gewohnt.',used:1310,upd:1},
+ {id:'t-nutri-mail',name:'NutriMix – neue Rezeptur (E-Mail)',ch:'email',anrede:'Du',subj:'Deine NutriMix-Mischung wurde verbessert',text:'Hallo {{Vorname}}, ab heute erhältst du deine NutriMix-Mischung in neuer Rezeptur. Was sich ändert und warum, erklären wir dir hier: {{Infolink}}. Deine Lieferung kommt wie gewohnt.',used:1310,upd:1},
+ {id:'t-ideen',name:'Reseller – Produktideen',ch:'email',anrede:'Du',subj:'Deine Ideen für neue Produkte',text:'Hallo {{Vorname}}, du kennst deine Kundinnen und Kunden am besten: Welche Produkte vermissen sie bei uns? Wir freuen uns über jede Idee – einfach auf diese Mail antworten.',used:377,upd:20},
+ {id:'t-li',name:'LinkedIn – Erstkontakt Health-Manager',ch:'linkedin',anrede:'Sie',subj:'',text:'Guten Tag {{Anrede}} {{Nachname}}, {{Bezug_auf_Beitrag}} Wir unterstützen Unternehmen mit genetischen Gesundheitsanalysen in der betrieblichen Gesundheitsförderung. Wäre ein kurzer Austausch für Sie interessant? Viele Grüße, {{Absender}}',used:212,upd:9},
+ {id:'t-infl',name:'Influencer – Kooperationsanfrage',ch:'instagram',anrede:'Du',subj:'',text:'Hi {{Vorname}}! {{Absender}} von Novogenia hier (KI-gestützt). {{Bezug_auf_Inhalt}} Wir würden dir gerne einen kostenlosen Lifestyle+ Test schicken – ganz ohne Pflicht. Interesse?',used:58,upd:30},
+ {id:'t-web',name:'Website-Anfrage – Nachfassen',ch:'email',anrede:'Sie',subj:'Ihre Anfrage als Novogenia-Partner',text:'Guten Tag {{Anrede}} {{Nachname}}, danke für Ihre Anfrage über unsere Website. Welche Produkte möchten Sie anbieten? Gerne vereinbare ich ein Gespräch mit unserem Vertrieb: {{Terminlink}}',used:81,upd:40}
+];
+const T=id=>TPL.find(t=>t.id===id);
+// E-Mail-Vorlagen haben ein HTML-Design (Kopf, Bildfläche, Überschrift, Text, Button, Fußzeile)
+const DESIGN={'t-perf-mail':['Dein Training. Deine Gene.','Jetzt Performance Plus holen'],'t-perf-rem':['Nur noch bis Sonntag','Gutschein einlösen'],'t-nutri-mail':['Deine NutriMix-Mischung – noch besser','Was sich ändert'],'t-ideen':['Deine Idee zählt','Idee schicken'],'t-web':['Willkommen als Partner?','Termin vereinbaren']};
+TPL.forEach(t=>{if(t.ch==='email')t.html=DESIGN[t.id]||[t.name,'Mehr erfahren']});
+const mailHTML=t=>`<div class="mail"><div class="mw"><div class="mh2">NOVOGENIA<small>NOVODAILY</small></div><div class="himg">${esc(t.html[0])}</div><div class="mb">${hlVars(t.text)}<br><span class="mbtn">${esc(t.html[1])}</span></div><div class="mf">Novogenia GmbH · Strass 19, 5301 Eugendorf · Abmelden · {{Abmeldelink}}</div></div></div>`;
+const mailCode=t=>`<table width="100%" style="background:#F2EEF1;padding:24px">\n <tr><td align="center">\n  <table width="560" style="background:#fff;border-radius:12px;font-family:Montserrat,Arial">\n   <tr><td style="background:#5E0047;color:#fff;padding:14px 20px;font-weight:800">NOVOGENIA</td></tr>\n   <tr><td style="background:#8C1D6E;color:#fff;padding:40px 20px 16px;font-size:22px;font-weight:800">${t.html[0]}</td></tr>\n   <tr><td style="padding:18px 20px;font-size:15px;color:#241F2C">${t.text}\n     <p><a href="{{Kauflink}}" style="background:#C6D63F;color:#26001D;padding:12px 20px;border-radius:999px;font-weight:800;text-decoration:none">${t.html[1]}</a></p></td></tr>\n   <tr><td style="padding:12px 20px;font-size:11px;color:#8B8292">Novogenia GmbH · Strass 19, 5301 Eugendorf · <a href="{{Abmeldelink}}">Abmelden</a></td></tr>\n  </table>\n </td></tr>\n</table>`;
+const hlVars=s=>esc(s).replace(/\{\{([^}]+)\}\}/g,'<span class="var">{{$1}}</span>');
+
+// Kampagnen
+const CAMPS=[
+ {id:'perf',type:'werbung',name:'Performance Plus Upsell',groups:['nd-end'],status:'aktiv',
+  task:'Wir haben den neuen Test Performance Plus. Er ist als Upsell ohne weitere Laboranalyse möglich, weil die DNA-Daten schon vorliegen. Versuche, die NovoDaily-Endkunden dafür zu gewinnen.',
+  offer:{disc:5,until:'08.11.2026',code:'PERF5'},tpl:['t-perf-mail','t-perf-rem','t-perf-push','t-perf-wa'],pref:['email','push'],allowed:['whatsapp'],forbidden:['linkedin','instagram','youtube','call'],
+  rem:{max:2,every:5},identity:'ai',approval:'first10',goal:'Kauf Performance Plus',check:'OrderManager: Bestellung mit Produkt „Performance Plus“ nach erstem Kontakt',
+  stats:{target:4812,contacted:1630,replied:412,converted:96,claimed:99,optout:21,human:2},trend:[12,30,44,61,58,72,90,96],next:'312 Erinnerungen fällig ab Dienstag'},
+ {id:'nutri',type:'update',name:'NutriMix: neue Rezeptur',groups:['abo'],status:'aktiv',
+  task:'Ab heute ist die Rezeptur der NutriMix-Nahrungsergänzungsmischung verändert. Informiere alle Abo-Kunden kurz und verständlich, was sich ändert. Kein Verkauf, keine Angebote.',
+  offer:{disc:0,until:'',code:''},tpl:['t-nutri-push','t-nutri-mail'],pref:['push','email'],allowed:[],forbidden:['whatsapp','linkedin','instagram','youtube','call'],
+  rem:{max:0,every:0},identity:'ai',approval:'auto',goal:'Information zugestellt',check:'Zustellbestätigung des Kanals',
+  stats:{target:1310,contacted:1288,replied:47,converted:1288,claimed:1288,optout:1,human:0},trend:[0,0,0,0,0,0,600,1288],next:'22 ohne Push-Erlaubnis → E-Mail heute 14:00'},
+ {id:'ideen',type:'werbung',name:'Produktideen von Resellern',groups:['nd-res','hl-res'],status:'aktiv',
+  task:'Frage unsere Reseller, welche Produkte ihre Kunden vermissen und welche Ideen sie für neue Tests oder Nahrungsergänzungen haben. Fasse die Antworten nach Themen zusammen.',
+  offer:{disc:0,until:'',code:''},tpl:['t-ideen'],pref:['email'],allowed:['whatsapp'],forbidden:['instagram','youtube','push','call'],
+  rem:{max:1,every:7},identity:'ai',approval:'auto',goal:'Antwort mit mindestens einer Idee',check:'Antwort ausgewertet',
+  stats:{target:377,contacted:377,replied:141,converted:118,claimed:118,optout:2,human:0},trend:[40,70,95,110,118,118,118,118],next:'Themen-Auswertung bereit'},
+ {id:'li',type:'werbung',name:'LinkedIn: Health-Manager gewinnen',groups:['li-hm'],status:'aktiv',
+  task:'Gewinne Health-Manager großer Unternehmen für ein Erstgespräch zu genetischer Gesundheitsvorsorge im Rahmen der betrieblichen Gesundheitsförderung.',
+  offer:{disc:0,until:'',code:''},tpl:['t-li'],pref:['linkedin'],allowed:['email'],forbidden:['whatsapp','instagram','push','call'],
+  rem:{max:2,every:7},identity:'human',approval:'human',goal:'Termin für Erstgespräch',check:'Termin im Kalender des Vertriebs',
+  stats:{target:1290,contacted:212,replied:37,converted:9,claimed:9,optout:4,human:1},trend:[2,3,5,5,7,8,8,9],next:'25 Entwürfe warten im Bereich „Senden“'},
+ {id:'infl',type:'werbung',name:'Influencer-Kooperationen',groups:['infl'],status:'pausiert',
+  task:'Kontaktiere Gesundheits- und Fitness-Influencer aus Österreich und Deutschland und biete ihnen einen kostenlosen Lifestyle+ Test für eine ehrliche Vorstellung an.',
+  offer:{disc:0,until:'',code:''},tpl:['t-infl'],pref:['instagram'],allowed:['youtube','email'],forbidden:['whatsapp','push','call'],
+  rem:{max:1,every:10},identity:'persona',persona:'Mia · Novogenia Kooperationen',delay:[4,12],approval:'human',goal:'Zusage zur Kooperation',check:'Test-Versand im OrderManager',
+  stats:{target:342,contacted:58,replied:14,converted:4,claimed:4,optout:3,human:0},trend:[0,1,2,2,3,4,4,4],next:'Pausiert: Freigabe der neuen Vorlage offen'},
+ {id:'web',type:'werbung',name:'Website-Reseller-Anfragen nachfassen',groups:['web-res'],status:'aktiv',
+  task:'Fasse bei allen Reseller-Anfragen über die Website nach, die noch keinen Vertrag haben. Kläre den Bedarf und biete ein Gespräch mit dem Vertrieb an.',
+  offer:{disc:0,until:'',code:''},tpl:['t-web'],pref:['email'],allowed:['whatsapp','linkedin'],forbidden:['instagram','push'],
+  rem:{max:3,every:4},identity:'persona',persona:'Lisa · Novogenia-Team',delay:[4,12],approval:'auto',goal:'Gespräch mit Vertrieb vereinbart',check:'Termin im Kalender des Vertriebs',
+  stats:{target:87,contacted:81,replied:29,converted:11,claimed:12,optout:1,human:1},trend:[3,5,6,8,9,10,11,11],next:'1 Übergabe an den Vertrieb offen'},
+ {id:'aboverl',type:'werbung',name:'Lifestyle+ Abo: Verlängerung',groups:['abo'],status:'geplant',
+  task:'Erinnere Kunden, deren Lifestyle+ Abo in den nächsten 30 Tagen endet, freundlich an die Verlängerung und frage nach ihren Erfahrungen.',
+  offer:{disc:10,until:'Ende des Abos',code:'TREUE10'},tpl:['t-perf-push'],pref:['push','email'],allowed:[],forbidden:['whatsapp','linkedin','instagram','youtube','call'],
+  rem:{max:2,every:7},identity:'ai',approval:'first10',goal:'Abo verlängert',check:'OrderManager: Abo-Verlängerung',
+  stats:{target:640,contacted:0,replied:0,converted:0,claimed:0,optout:0,human:0},trend:[0,0,0,0,0,0,0,0],next:'Start Montag, 02.11.2026, 09:00'},
+ {id:'hl',type:'werbung',name:'Hartlauer: Einladung Produktschulung',groups:['hl-res'],status:'abgeschlossen',
+  task:'Lade alle Hartlauer-Filialen zur Online-Produktschulung am 22.10. ein und sammle die Anmeldungen.',
+  offer:{disc:0,until:'',code:''},tpl:['t-ideen'],pref:['email'],allowed:[],forbidden:['whatsapp','linkedin','instagram','youtube','push','call'],
+  rem:{max:1,every:5},identity:'ai',approval:'auto',goal:'Anmeldung zur Schulung',check:'Anmeldeliste Schulung',
+  stats:{target:163,contacted:163,replied:104,converted:97,claimed:97,optout:0,human:0},trend:[20,55,80,92,97,97,97,97],next:'Abgeschlossen am 21.10.2026'}
+];
+const C0=id=>CAMPS.find(c=>c.id===id);
+const PMAP={perf:'upsell',nutri:'keep_end',ideen:'keep_res',li:'lead_res',infl:'lead_res',web:'lead_res',aboverl:'keep_end',hl:'act_res'};
+CAMPS.forEach(c=>c.purpose=PMAP[c.id]);
+CAMPS.splice(3,0,{id:'find-li',purpose:'find',type:'werbung',name:'LinkedIn: neue Health-Manager finden',groups:['li-hm'],status:'aktiv',
+  task:'Finde Personen, die in Unternehmen ab 500 Mitarbeitenden in Österreich und Deutschland für betriebliche Gesundheit verantwortlich sind (Health-Manager, BGM, HR-Wellbeing). Lege sie in der Zielgruppe „LinkedIn Health Manager“ an – mit Fundstelle. Niemanden anschreiben.',
+  find:{who:'Health-Manager, BGM-Leitung, HR-Wellbeing in Unternehmen ab 500 Mitarbeitenden, Österreich und Deutschland',src:['LinkedIn','Firmenwebsites'],perDay:20},
+  offer:{disc:0,until:'',code:''},tpl:[],pref:[],allowed:[],forbidden:[],rem:{max:0,every:0},identity:'ai',approval:'auto',goal:'Neue Kontakte in der Zielgruppe',check:'Kontakt mit Fundstelle angelegt, keine Dublette',
+  stats:{target:2000,contacted:640,replied:512,converted:420,claimed:420,optout:92,human:0},trend:[30,90,150,220,280,330,380,420],next:'heute 12 von 20 neuen Kontakten angelegt'});
+// Gutscheine: ein Code für alle oder Einmal-Codes je Kontakt; optional begrenzte Anzahl
+Object.assign(C0('perf').offer,{mode:'single',limit:150,assigned:118,redeemed:96});
+Object.assign(C0('aboverl').offer,{mode:'unique',code:'TREUE10-',limit:50,assigned:0,redeemed:0});
+const C=id=>CAMPS.find(c=>c.id===id);
+const vLeft=o=>o.limit?o.limit-(o.mode==='unique'?o.assigned:o.redeemed):null;
+const vCodes=(o,n)=>Array.from({length:n},(_,i)=>o.code+((i*7919+4241)%46656).toString(36).toUpperCase().padStart(3,'0')+'X'.repeat(0));
+function voucherCard(c){const o=c.offer;if(!o.disc)return '';const left=vLeft(o);
+  return `<div class="card" style="margin-top:16px"><h3>${ic('ticket-percent')} Gutscheine</h3>
+   <dl class="kv"><dt>Rabatt</dt><dd>${o.disc} % bis ${o.until}</dd><dt>Art</dt><dd>${o.mode==='unique'?`Einmal-Codes – jeder Kontakt bekommt einen eigenen Code (${o.code}…)`:`Ein Code für alle: <b>${o.code}</b>`}</dd><dt>Anzahl</dt><dd>${o.limit?`begrenzt auf ${o.limit}`:'unbegrenzt'}</dd></dl>
+   ${o.limit?`<div class="vpool"><div><b>${o.limit}</b><span>gesamt</span></div><div><b>${o.mode==='unique'?o.assigned:'–'}</b><span>vergeben</span></div><div><b>${o.redeemed}</b><span>eingelöst</span></div><div><b>${left}</b><span>noch verfügbar</span></div></div>
+   <div class="bar"><i style="width:${pct(o.redeemed,o.limit)}%;background:var(--plum)"></i><i style="width:${o.mode==='unique'?pct(o.assigned-o.redeemed,o.limit):0}%;background:#C890B9"></i></div>
+   <p class="muted" style="margin:10px 0 0">Der Agent darf die Knappheit nennen – mit der echten Zahl aus der Plattform, z. B. „Es sind nur noch ${left} von ${o.limit} Gutscheinen übrig.“ Ist der Vorrat leer, bietet er keinen Gutschein mehr an.</p>`:''}
+   ${o.mode==='unique'?`<div class="muted" style="font-weight:700;margin-top:12px">Code-Vorrat (Beispiele)</div><div class="vcodes">${vCodes(o,8).map((x,i)=>`<span class="vcode ${i<o.redeemed?'used':''}">${x}</span>`).join('')}<span class="muted">… ${o.limit||'∞'} Codes</span></div>`:''}</div>`}
+const STI={aktiv:'circle-play',pausiert:'circle-pause',geplant:'calendar-days',abgeschlossen:'circle-check'};
+const sbadge=s=>`<span class="sb ${s}">${ic(STI[s])}${s[0].toUpperCase()+s.slice(1)}</span>`;
+const IDN={ai:'Offen als KI-Agent',persona:'Persona mit KI-Hinweis',human:'KI entwirft, Mensch sendet'};
+const APN={auto:'Automatisch',first10:'Erste 10 Nachrichten freigeben',human:'Jede Nachricht freigeben'};
+
+// Kontakte
+const CONTACTS=[
+ {id:'k1',name:'Sabine Koller',groups:['nd-end','all-end','abo'],ch:{email:['sabine.koller@example.com',1],whatsapp:['+43 664 ••• 218',1],push:['GEN(e)IUS-App',1]},pref:'whatsapp',last:0,
+  anrede:['Du','Endkundin – Du-Form von Beginn an'],link:'novodaily.com/k/sk7Q2m',
+  mem:[['target','Ziel','möchte bis zum Sommer 6 kg abnehmen',5],['heart','Interesse','läuft – Halbmarathon im Mai geplant',12],['circle-alert','Einwand','fand das Abo anfangs zu teuer',40]],
+  hist:{since:140,orders:6,revenue:'342,41 €',lastBuy:1,mods:['Ernährung','Fitness','Stoffwechsel','Nahrungsergänzung','Performance (Upgrade)'],nomods:['Shape','Pharmaco'],abo:'Lifestyle+ Abo aktiv · nächste Lieferung in 9 Tagen',
+   items:[['Performance Plus (Upgrade) · Code PERF5',1,'47,41 €'],['Lifestyle+ Monatslieferung',21,'39,00 €'],['Lifestyle+ Monatslieferung',51,'39,00 €'],['Lifestyle+ Monatslieferung',81,'39,00 €'],['Lifestyle+ Monatslieferung',111,'39,00 €'],['NovoDaily Lifestyle+ Abo – Erstbestellung',140,'139,00 €']]},
+  plan:[[-20,'Feedback zu Performance Plus erfragen','Werbung · Kontaktpause 7 Tage, Bericht dann seit 2 Wochen da']],
+  status:['Konvertiert','p'],camps:['perf','nutri'],
+  tl:[
+   {d:6,t:'09:12',dir:'out',ch:'email',camp:'perf',by:'Agent',tpl:'t-perf-mail',subj:'Dein Training, deine Gene – jetzt mit Performance Plus',text:'Hallo Sabine, du bereitest dich gerade auf deinen Halbmarathon vor. Mit Performance Plus werten wir deine vorhandenen DNA-Daten zusätzlich für Ausdauer, Regeneration und Verletzungsrisiko aus – ohne neue Speichelprobe. Mit dem Gutscheincode PERF5 sparst du bis 08.11. 5 %. Dein persönlicher Link: novodaily.com/k/sk7Q2m – Diese Nachricht wurde von unserem KI-Assistenten verfasst.'},
+   {d:5,t:'19:40',dir:'in',ch:'email',camp:'perf',text:'Klingt spannend. Können wir das lieber per WhatsApp machen? E-Mails lese ich kaum.'},
+   {d:5,t:'19:40',dir:'sys',icon:'arrow-right-left',text:'Kanalwechsel E-Mail → WhatsApp (auf Wunsch der Kundin, Einwilligung vorhanden). Dialog aktiv – Kontaktpause ausgesetzt.'},
+   {d:5,t:'19:41',dir:'out',ch:'whatsapp',camp:'perf',by:'Agent',text:'Gerne, Sabine! Hier ist dein persönlicher Link: novodaily.com/k/sk7Q2m – mit dem Code PERF5 bekommst du 5 % bis 08.11. Fragen beantworte ich dir gern hier. – Dein Novogenia KI-Assistent'},
+   {d:5,t:'19:50',dir:'in',ch:'whatsapp',camp:'perf',text:'Hilft mir das auch beim Abnehmen? Das ist eigentlich mein Hauptziel.'},
+   {d:5,t:'19:50',dir:'sys',icon:'brain',text:'Gemerkt: Hauptziel Abnehmen (6 kg bis Sommer)'},
+   {d:5,t:'19:51',dir:'out',ch:'whatsapp',camp:'perf',by:'Agent',text:'Performance Plus zeigt dir, wie dein Körper genetisch auf Ausdauer- und Krafttraining reagiert. Damit kannst du dein Training gezielter planen – das unterstützt auch dein Abnehmziel. Deine Ernährungsauswertung hast du bereits in Lifestyle+.'},
+   {d:1,t:'08:05',dir:'in',ch:'whatsapp',camp:'perf',text:'Hab’s gerade bestellt 👍'},
+   {d:1,t:'08:20',dir:'sys',icon:'database',text:'Ziel geprüft im OrderManager: Bestellung NS-4f1a9c-311026 „Performance Plus“ (Code PERF5) gefunden ✓ → für diese Kampagne archiviert'},
+   {d:0,t:'09:00',dir:'out',ch:'push',camp:'nutri',by:'Agent',tpl:'t-nutri-push',text:'Sabine, ab heute ist deine NutriMix-Mischung verbessert: mehr Vitamin D3, Magnesium in besser verträglicher Form. Für dich ändert sich nichts – Lieferung wie gewohnt.'},
+   {d:0,t:'09:00',dir:'sys',icon:'bell',text:'Wichtiges Update: Kontaktpause für Updates = 0 Tage, daher trotz Nachricht von gestern gesendet'}
+  ]},
+ {id:'k2',name:'Thomas Reiter',groups:['nd-end','all-end'],ch:{email:['t.reiter@example.com',1],push:['GEN(e)IUS-App',1]},pref:'email',last:4,
+  anrede:['Du','Endkunde – Du-Form'],link:'novodaily.com/k/tr3Lx9',
+  mem:[['heart','Interesse','Krafttraining, 4× pro Woche',4]],
+  hist:{since:210,orders:1,revenue:'149,00 €',lastBuy:210,mods:['Ernährung','Fitness','Stoffwechsel'],nomods:['Performance','Shape','Nahrungsergänzung'],abo:'kein Abo',items:[['NovoDaily Lifestyle (Digital PDF)',210,'149,00 €']]},
+  plan:[[-3,'Erinnerung 1 von 2: auf Performance Plus ansprechen (Code PERF5, gilt bis 08.11.)','Wartet auf Kontaktpause Werbung (7 Tage seit letzter Nachricht)'],[-8,'Erinnerung 2 von 2 – nur falls keine Reaktion','Abstand 5 Tage laut Kampagne']],
+  status:['Erinnerung geplant','y'],camps:['perf'],
+  tl:[{d:4,t:'09:14',dir:'out',ch:'email',camp:'perf',by:'Agent',tpl:'t-perf-mail',subj:'Dein Training, deine Gene – jetzt mit Performance Plus',text:'Hallo Thomas, du trainierst regelmäßig Kraft. Performance Plus zeigt dir auf Basis deiner vorhandenen DNA-Daten, wie du genetisch auf Kraft- und Ausdauertraining ansprichst. Code PERF5: 5 % bis 08.11. Dein Link: novodaily.com/k/tr3Lx9 – Diese Nachricht wurde von unserem KI-Assistenten verfasst.'}]},
+ {id:'k3',name:'Andrea Lindner',groups:['nd-end','all-end'],ch:{email:['andrea.lindner@example.com',1],whatsapp:['+43 676 ••• 904',1]},pref:'whatsapp',last:0,dialog:true,
+  anrede:['Du','Endkundin – Du-Form'],link:'novodaily.com/k/al8Pq1',
+  mem:[['circle-alert','Wunsch','möchte mit einem Menschen sprechen',0]],
+  hist:{since:95,orders:2,revenue:'188,00 €',lastBuy:65,mods:['Ernährung','Fitness','Stoffwechsel','Nahrungsergänzung'],nomods:['Performance'],abo:'Lifestyle+ Abo gekündigt vor 30 Tagen',items:[['Lifestyle+ Monatslieferung',65,'39,00 €'],['NovoDaily Lifestyle+ Abo – Erstbestellung',95,'149,00 €']]},
+  plan:[[0,'Agent pausiert – wartet auf Antwort eines Menschen','Übergabe im Posteingang']],
+  status:['Übergabe an Mensch','r'],camps:['perf'],handover:'Möchte mit einem Menschen sprechen',
+  tl:[{d:2,t:'10:02',dir:'out',ch:'whatsapp',camp:'perf',by:'Agent',tpl:'t-perf-wa',text:'Hallo Andrea! Mit Performance Plus werten wir deine vorhandenen DNA-Daten für Training und Regeneration aus – ohne neue Probe. Code PERF5: 5 % bis 08.11. novodaily.com/k/al8Pq1 – Dein Novogenia KI-Assistent'},
+      {d:0,t:'08:47',dir:'in',ch:'whatsapp',camp:'perf',text:'Ich hätte da ein paar Fragen zu meinem letzten Bericht. Kann ich bitte mit einer echten Person sprechen?'},
+      {d:0,t:'08:47',dir:'sys',icon:'headset',text:'An Mensch übergeben: Kundin wünscht persönlichen Kontakt. Agent pausiert für diesen Kontakt.'}]},
+ {id:'k4',name:'Markus Ebner',groups:['li-hm'],ch:{linkedin:['linkedin.com/in/markus-ebner-demo',1],email:[['m.ebner@example-firma.at',0,'Markus Ebner (direkt)'],['bgm-team@example-firma.at',0,'BGM-Team'],['l.wagner@example-firma.at',0,'Lisa Wagner, Assistenz']]},pref:'linkedin',last:2,
+  anrede:['Sie','Firmenkontakt – Sie-Form'],link:'—',
+  mem:[['target','Rolle','Head of Health Management, 2.300 Mitarbeitende',9],['heart','Interesse','plant Vorsorge-Programm 2027, möchte Unterlagen',2]],
+  hist:null,lead:'Kein Kunde · Lead aus Agent-Recherche LinkedIn (gefunden vor 11 Tagen)',
+  plan:[[-5,'Nachfassen: Haben die Unterlagen gepasst? Termin vorschlagen','Dialog ruht seit 2 Tagen → Kontaktpause Werbung (7 Tage) gilt wieder']],
+  status:['Antwort erhalten','g'],camps:['li'],
+  tl:[{d:9,t:'11:20',dir:'out',ch:'linkedin',camp:'li',by:'Daniel W. (Mensch, über Plattform gesendet)',tpl:'t-li',text:'Guten Tag Herr Ebner, ich habe Ihren Beitrag zur Gesundheitsvorsorge in der Belegschaft gelesen. Wir unterstützen Unternehmen mit genetischen Gesundheitsanalysen in der betrieblichen Gesundheitsförderung. Wäre ein kurzer Austausch für Sie interessant? Viele Grüße, Daniel Wallerstorfer'},
+      {d:2,t:'16:05',dir:'in',ch:'linkedin',camp:'li',text:'Hallo Herr Wallerstorfer, ja, wir planen gerade unser Programm für 2027. Schicken Sie mir gerne Unterlagen.'},
+      {d:2,t:'16:05',dir:'sys',icon:'brain',text:'Gemerkt: plant Vorsorge-Programm 2027 – Unterlagen gewünscht. Dialog aktiv – Antwortentwurf erstellt.'},
+      {d:2,t:'16:31',dir:'out',ch:'linkedin',camp:'li',by:'Daniel W. (Mensch, über Plattform gesendet)',text:'Sehr gerne, Herr Ebner. Anbei unsere Unterlagen zur betrieblichen Gesundheitsförderung mit Genanalysen. Wenn es passt, stelle ich Ihnen das Programm gerne in 20 Minuten vor.'}]},
+ {id:'k5',name:'Claudia Hofer',groups:['nd-end','all-end'],ch:{email:['c.hofer@example.com',0],whatsapp:['+43 699 ••• 117',0]},pref:'',last:4,dnc:{d:4,src:'WhatsApp-Antwort',text:'Bitte schreiben Sie mir nicht mehr.'},
+  anrede:['Sie','Kundin schreibt per Sie'],link:'novodaily.com/k/ch2Vb7',
+  mem:[],hist:{since:300,orders:1,revenue:'149,00 €',lastBuy:300,mods:['Ernährung','Fitness','Stoffwechsel'],nomods:['Performance'],abo:'kein Abo',items:[['NovoDaily Lifestyle (Digital PDF)',300,'149,00 €']]},
+  plan:[],status:['Nicht kontaktieren','r'],camps:['perf'],
+  tl:[{d:5,t:'10:11',dir:'out',ch:'whatsapp',camp:'perf',by:'Agent',tpl:'t-perf-wa',text:'Hallo Claudia! Mit Performance Plus werten wir deine vorhandenen DNA-Daten für Training und Regeneration aus – ohne neue Probe. – Dein Novogenia KI-Assistent'},
+      {d:4,t:'07:30',dir:'in',ch:'whatsapp',camp:'perf',text:'Bitte schreiben Sie mir nicht mehr.'},
+      {d:4,t:'07:30',dir:'sys',icon:'ban',text:'Sperre gesetzt: nicht mehr kontaktieren – alle Kanäle, alle Kampagnen. Einwilligungen widerrufen.'},
+      {d:4,t:'07:31',dir:'out',ch:'whatsapp',camp:'perf',by:'Agent',text:'Verstanden. Wir haben Sie aus allen Aussendungen entfernt und melden uns nicht mehr. Alles Gute!'}]},
+ {id:'k6',name:'Peter Gruber',groups:['nd-end','all-end','abo'],ch:{email:['peter.gruber@example.com',1],push:['GEN(e)IUS-App',1]},pref:'email',last:0,dialog:true,
+  anrede:['Du','Endkunde – Du-Form'],link:'novodaily.com/k/pg5Hn3',
+  mem:[['circle-alert','Hinweis','nimmt Blutverdünner ein',0]],
+  hist:{since:60,orders:2,revenue:'188,00 €',lastBuy:30,mods:['Ernährung','Fitness','Stoffwechsel','Nahrungsergänzung'],nomods:['Pharmaco','Performance'],abo:'Lifestyle+ Abo aktiv',items:[['Lifestyle+ Monatslieferung',30,'39,00 €'],['NovoDaily Lifestyle+ Abo – Erstbestellung',60,'149,00 €']]},
+  plan:[[0,'Agent pausiert – medizinische Frage, nur ein Mensch antwortet','Übergabe im Posteingang']],
+  status:['Übergabe an Mensch','r'],camps:['perf'],handover:'Medizinische Frage – Agent darf nicht beraten',
+  tl:[{d:4,t:'09:15',dir:'out',ch:'email',camp:'perf',by:'Agent',tpl:'t-perf-mail',subj:'Dein Training, deine Gene – jetzt mit Performance Plus',text:'Hallo Peter, mit Performance Plus werten wir deine vorhandenen DNA-Daten zusätzlich für Training und Regeneration aus. Code PERF5: 5 % bis 08.11. novodaily.com/k/pg5Hn3 – Diese Nachricht wurde von unserem KI-Assistenten verfasst.'},
+      {d:0,t:'09:58',dir:'in',ch:'email',camp:'perf',text:'Ich nehme Blutverdünner. Kann ich mit dem Ergebnis meine Dosis anpassen?'},
+      {d:0,t:'09:58',dir:'sys',icon:'headset',text:'An Mensch übergeben: medizinische Frage. Agent gibt keine Therapie-Empfehlungen.'}]},
+ {id:'k7',name:'Julia Wimmer',groups:['infl'],ch:{instagram:['@julia.moves.demo',1],youtube:['Julia Moves (Demo)',1],email:['kooperation@example.com',1]},pref:'instagram',last:8,
+  anrede:['Du','Julia hat auf Du gewechselt (vor 8 Tagen)'],link:'—',
+  mem:[['heart','Profil','Fitness & Ernährung, 48.000 Follower, Wien',20],['target','Interesse','möchte Test vorher selbst ausprobieren',8]],
+  hist:{since:7,orders:1,revenue:'0,00 € (Kooperation)',lastBuy:7,mods:['Lifestyle+ (Gratis-Test)'],nomods:[],abo:'—',items:[['Lifestyle+ Test – Kooperation, kostenlos',7,'0,00 €']]},
+  plan:[[-14,'Nachfragen, ob das Kit angekommen ist und die Probe zurückgeschickt wurde','Werbung · Kontaktpause 7 Tage']],
+  status:['Zusage','g'],camps:['infl'],
+  tl:[{d:12,t:'18:22',dir:'out',ch:'instagram',camp:'infl',by:'Agent (Persona Mia)',tpl:'t-infl',text:'Hallo Frau Wimmer! Mia von Novogenia hier (KI-gestützt). Dein Video zur Regeneration hat mir sehr gefallen. Wir würden Ihnen gerne einen kostenlosen Lifestyle+ Test schicken – ganz ohne Pflicht. Interesse?'},
+      {d:8,t:'09:10',dir:'in',ch:'instagram',camp:'infl',text:'Hi Mia! Du kannst mich ruhig duzen 😊 Ja gerne, ich will es aber erst selbst testen, bevor ich was poste.'},
+      {d:8,t:'09:10',dir:'sys',icon:'languages',text:'Anrede beim Kontakt gespeichert: ab jetzt Du-Form'},
+      {d:8,t:'09:17',dir:'out',ch:'instagram',camp:'infl',by:'Agent (Persona Mia)',delay:7,text:'Super, Julia! Total verständlich – teste in Ruhe. Schick mir einfach deine Adresse, dann geht das Kit morgen raus.'},
+      {d:7,t:'11:00',dir:'sys',icon:'database',text:'Ziel geprüft im OrderManager: Kooperations-Versand NS-77c0e2-251026 angelegt ✓ → archiviert'}]},
+ {id:'k8',name:'Stefan Moser',groups:['web-res'],ch:{email:[['s.moser@example-apotheke.at',1,'Stefan Moser, Inhaber'],['einkauf@example-apotheke.at',1,'Einkauf'],['filiale.urfahr@example-apotheke.at',1,'Filiale Urfahr']],whatsapp:['+43 660 ••• 551',1]},pref:'email',last:0,dialog:true,
+  anrede:['Sie','Firmenkontakt – Sie-Form'],link:'—',
+  mem:[['target','Betrieb','Apotheke, 2 Standorte, Linz',14],['circle-alert','Einwand','Lieferzeit der Musterkits zu lang',0]],
+  hist:null,lead:'Noch kein Partner · Anfrage über Kontaktformular vor 15 Tagen',
+  plan:[[0,'Agent pausiert – Beschwerde, Vertrieb antwortet','Übergabe im Posteingang']],
+  status:['Übergabe an Mensch','r'],camps:['web'],handover:'Beschwerde – Rückfrage zur Lieferzeit',
+  tl:[{d:14,t:'08:30',dir:'out',ch:'email',camp:'web',by:'Agent (Persona Lisa)',tpl:'t-web',subj:'Ihre Anfrage als Novogenia-Partner',text:'Guten Tag Herr Moser, danke für Ihre Anfrage über unsere Website. Welche Produkte möchten Sie in Ihrer Apotheke anbieten? Gerne vereinbare ich ein Gespräch mit unserem Vertrieb. Viele Grüße, Lisa · Novogenia-Team (KI-gestützt)'},
+      {d:13,t:'12:10',dir:'in',ch:'email',camp:'web',text:'Vor allem Nahrungsergänzung mit Gentest. Wie lange dauert die Lieferung der Kits?'},
+      {d:13,t:'12:19',dir:'out',ch:'email',camp:'web',by:'Agent (Persona Lisa)',delay:9,subj:'Re: Ihre Anfrage als Novogenia-Partner',text:'Guten Tag Herr Moser, Musterkits sind in der Regel in 3 bis 5 Werktagen bei Ihnen. Ich habe zwei Kits für Sie angefordert. Viele Grüße, Lisa · Novogenia-Team (KI-gestützt)'},
+      {d:0,t:'10:12',dir:'in',ch:'email',camp:'web',text:'Ich warte seit über einer Woche auf die Musterkits. So wird das nichts.'},
+      {d:0,t:'10:12',dir:'sys',icon:'headset',text:'An Mensch übergeben: Beschwerde. Vertrieb informiert.'}]},
+ {id:'k9',name:'Karin Steiner',groups:['nd-res'],ch:{email:['karin@example-studio.at',1],whatsapp:['+43 664 ••• 330',1]},pref:'email',last:6,
+  anrede:['Du','Karin hat auf Du gewechselt (vor 6 Tagen)'],link:'novopilot.com/p/NPKS0310',
+  mem:[['sparkles','Idee','wünscht einen Gentest für Haut & Haare',6]],
+  hist:{since:720,orders:46,revenue:'5.980,00 € (Shop-Umsatz)',lastBuy:6,mods:['verkauft: Lifestyle','Lifestyle+','Shape'],nomods:['verkauft nie: Performance','Pharmaco'],abo:'Partner seit 2 Jahren',items:[['Kundenbestellung über Partner-Shop · Lifestyle+',6,'149,00 €'],['Kundenbestellung über Partner-Shop · Shape',19,'99,00 €']]},
+  plan:[[-1,'Danke sagen und mitteilen, dass ihre Idee „Haut & Haare“ ans Produktteam geht','Werbung · Kontaktpause 7 Tage endet morgen']],
+  status:['Geantwortet','g'],camps:['ideen'],
+  tl:[{d:9,t:'09:00',dir:'out',ch:'email',camp:'ideen',by:'Agent',tpl:'t-ideen',subj:'Ihre Ideen für neue Produkte',text:'Hallo Frau Steiner, Sie kennen Ihre Kundinnen am besten: Welche Produkte vermissen sie bei uns? Wir freuen uns über jede Idee. Diese Nachricht wurde von unserem KI-Assistenten verfasst.'},
+      {d:6,t:'21:15',dir:'in',ch:'email',camp:'ideen',text:'Hallo! Sag ruhig Du 🙂 Ein Test für Haut und Haare wäre super – das fragen meine Kundinnen ständig.'},
+      {d:6,t:'21:15',dir:'sys',icon:'languages',text:'Anrede beim Kontakt gespeichert: ab jetzt Du-Form'},
+      {d:6,t:'21:15',dir:'sys',icon:'brain',text:'Gemerkt: Produktidee Haut & Haare (Thema „Kosmetik“)'}]},
+ {id:'k10',name:'Daniela Fuchs',groups:['li-hm'],ch:{linkedin:['linkedin.com/in/daniela-fuchs-demo',1]},pref:'linkedin',last:99,
+  anrede:['Sie','Firmenkontakt – Sie-Form'],link:'—',
+  mem:[['target','Rolle','HR Wellbeing Lead, Versicherung',1]],hist:null,lead:'Kein Kunde · Lead aus Agent-Recherche LinkedIn (gefunden gestern)',
+  plan:[[0,'Erstkontakt: Entwurf wartet im Bereich „Senden“ auf einen Menschen','KI entwirft, Mensch sendet']],
+  status:['Wartet auf Senden','y'],camps:['li'],
+  tl:[{d:0,t:'08:10',dir:'sys',icon:'file-text',text:'Entwurf aus Vorlage „LinkedIn – Erstkontakt Health-Manager“ erstellt – wartet im Bereich „Senden“'}]}
+];
+const K=id=>CONTACTS.find(c=>c.id===id);
+// Ein Kanal kann mehrere Adressen haben (z. B. Firma mit mehreren Teammitgliedern): [[Adresse, Einwilligung, Bezeichnung], …]
+const addrs=v=>Array.isArray(v[0])?v:[[v[0],v[1],'']];
+const fa=(k,c)=>k.ch[c]?addrs(k.ch[c]).map(a=>a[0]).join(', '):'';
+function addEmail(id){const k=K(id),i=document.getElementById('newMail'),l=document.getElementById('newMailL');const v=i.value.trim();if(!/.+@.+\..+/.test(v))return toast('Bitte eine gültige E-Mail-Adresse eingeben');
+  k.ch.email=k.ch.email?addrs(k.ch.email):[];k.ch.email.push([v,0,l.value.trim()||'weitere Adresse']);k.tl.push({d:0,t:'10:33',dir:'sys',icon:'mail',text:`E-Mail-Adresse hinzugefügt: ${v} – Einwilligung noch offen`});toast('E-Mail-Adresse gespeichert');render()}
+
+// Senden: Entwürfe, die ein Mensch absendet (KI entwirft, Mensch sendet)
+const ONAMES=[['Daniela Fuchs','HR Wellbeing Lead · Versicherung'],['Martin Leitner','Leiter BGM · Industrie'],['Eva Brandstätter','Head of People · Handel'],['Florian Huber','Gesundheitsmanager · Logistik'],['Sandra Kogler','Corporate Health · Bank'],['Michael Pichler','HR-Leitung · Energie'],['Nina Aigner','Wellbeing Manager · IT'],['Robert Weiß','BGM-Koordinator · Spital'],['Lena Schwarz','HR Business Partner · Telekom'],['Georg Wallner','Arbeitsmedizin · Bau'],['Katharina Berger','People & Culture · Versicherung'],['Andreas Mayr','Health & Safety · Chemie']];
+const OUTBOX=ONAMES.map((n,i)=>({id:'o'+i,name:n[0],role:n[1],ch:'linkedin',camp:'li',tpl:'t-li',min:8+i*7,state:'wartet',
+  text:`Guten Tag ${/a$|e$|in$/.test(n[0].split(' ')[0])?'Frau':'Herr'} ${n[0].split(' ')[1]}, ${['ich habe Ihren Beitrag zu Wellbeing in Ihrem Unternehmen gelesen.','Ihr Vortrag zur betrieblichen Gesundheitsförderung hat mich angesprochen.','ich habe gesehen, dass Sie das Gesundheitsprogramm Ihres Unternehmens verantworten.'][i%3]} Wir unterstützen Unternehmen mit genetischen Gesundheitsanalysen in der betrieblichen Gesundheitsförderung. Wäre ein kurzer Austausch für Sie interessant? Viele Grüße, Daniel Wallerstorfer`}));
+OUTBOX.push({id:'o-ig1',name:'Marie Lechner',role:'Yoga & Ernährung · 22.000 Follower',ch:'instagram',camp:'infl',tpl:'t-infl',min:95,state:'wartet',text:'Hi Marie! Mia von Novogenia hier (KI-gestützt). Deine Beiträge zu Ernährung und Yoga gefallen mir sehr. Wir würden dir gerne einen kostenlosen Lifestyle+ Test schicken – ganz ohne Pflicht. Interesse?'});
+OUTBOX.push({id:'o-s1',name:'Markus Ebner',role:'Head of Health Management',ch:'linkedin',camp:'li',min:0,state:'gesendet',sentBy:'Daniel W.',sentAt:'30.10.2026, 16:31 (vor 2 Tagen)',text:'Sehr gerne, Herr Ebner. Anbei unsere Unterlagen zur betrieblichen Gesundheitsförderung mit Genanalysen.'});
+let OSEL=new Set();
+
+const FEED=[
+ [1,'send','#3B82C4','E-Mail an Thomas Reiter gesendet','Performance Plus Upsell · Screenshot gespeichert'],
+ [2,'bell','#0F4C81','NutriMix-Update an 1.288 Abo-Kunden','Wichtiges Update · Kontaktpause 0 Tage'],
+ [3,'database','#5FA81E','Ziel geprüft: Sabine Koller hat gekauft','OrderManager: Bestellung NS-4f1a9c-311026'],
+ [6,'headset','#D32F2F','Übergabe an Mensch: Andrea Lindner','Wünscht persönlichen Kontakt'],
+ [9,'user-plus','#5FA81E','12 neue Health-Manager gefunden','Zielgruppe LinkedIn Health Manager erweitert'],
+ [14,'clock','#FFB81C','38 Kontakte übersprungen','Kontaktpause Werbung: letzte Nachricht < 7 Tage'],
+ [18,'ban','#D32F2F','Sperre gesetzt: Claudia Hofer','„Bitte schreiben Sie mir nicht mehr“'],
+ [25,'languages','#5E0047','Anrede gespeichert: Karin Steiner → Du','Kontakt hat auf Du gewechselt'],
+ [31,'file-text','#FFB81C','25 LinkedIn-Entwürfe warten auf Senden','KI entwirft, Mensch sendet']
+];
+const FEEDLIVE=[
+ ['send','#3B82C4','App-Push an 40 NovoDaily-Endkunden gesendet','Performance Plus Upsell · 40 Screenshots gespeichert'],
+ ['database','#5FA81E','OrderManager-Abgleich: 2 neue Käufe bestätigt','Performance Plus Upsell'],
+ ['message-circle','#25A35A','Antwort von Karin Steiner zugeordnet','Produktideen · Thema Kosmetik'],
+ ['timer','#0B2A4A','Antwort an Stefan Moser in 9 Min. geplant','Persona Lisa · natürliche Antwortzeit'],
+ ['clock','#FFB81C','Ruhezeit-Regel: 14 Nachrichten auf 08:00 verschoben','Keine Nachrichten zwischen 20 und 8 Uhr'],
+ ['refresh-cw','#5E0047','Antworten aller Kanäle abgeholt','E-Mail, WhatsApp, LinkedIn, Instagram, YouTube']
+];
+
+const RULES=[
+ ['heart','Grundhaltung: immer auf der Seite des Kunden','Der Agent tritt als Fürsprecher des Kunden auf: Er versucht, für ihn beim Unternehmen etwas zu erreichen – den passenden Gutschein, eine schnelle Lösung, eine ehrliche Empfehlung. Lieber kein Verkauf als ein unpassender. Diese Haltung prägt jede Nachricht.'],
+ ['clock','Kontaktpause Werbung: 7 Tage','Nach einer Werbe-Nachricht (Verkauf, Upsell, Angebot) wartet der Agent 7 Tage, bevor er dieselbe Person erneut anschreibt – über alle Kampagnen und Kanäle.'],
+ ['bell','Kontaktpause Wichtige Updates: 0 Tage','Wichtige Updates (z. B. geänderte NutriMix-Rezeptur, Lieferinfo) dürfen sofort raus – auch wenn kurz vorher eine Werbe-Nachricht kam. Sie zählen nicht als Werbung.'],
+ ['message-circle','Aktiver Dialog setzt die Pause aus','Schreibt der Kontakt zurück, antwortet der Agent ohne Pause. Kommt keine Antwort mehr, gilt ab der letzten Nachricht wieder die Kontaktpause.'],
+ ['repeat','Erinnerungen','Höchstens 3 Erinnerungen pro Kampagne, mindestens 4 Tage Abstand. Jede Kampagne kann strenger sein.'],
+ ['calendar-clock','Ruhezeiten','Keine Nachrichten zwischen 20:00 und 08:00 Uhr, nicht an Sonn- und Feiertagen (Zeitzone des Kontakts). Ausnahme: Antworten in einem aktiven Dialog.'],
+ ['ban','„Nicht mehr kontaktieren“','Wer das schreibt (oder sinngemäß), wird sofort für alle Kanäle und Kampagnen gesperrt. Der Agent bestätigt einmal und meldet sich nie wieder.'],
+ ['shield-check','Einwilligung','E-Mail, WhatsApp und App-Push nur mit dokumentierter Einwilligung. Ohne Einwilligung blockiert die Plattform den Versand – nicht der Agent.'],
+ ['languages','Du oder Sie','Endkunden: Du. Firmenkontakte: Sie. Wechselt das Gegenüber auf Du, wird das beim Kontakt gespeichert und ab dann immer verwendet.'],
+ ['bot','KI-Kennzeichnung','Nachrichten des Agenten sind als KI-gestützt erkennbar. Fragt jemand „Bist du ein Mensch?“, sagt der Agent immer die Wahrheit. Ausnahme: „KI entwirft, Mensch sendet“ – dann ist es die Nachricht des Menschen.'],
+ ['timer','Natürliche Antwortzeit','Bei Persona-Kampagnen antwortet der Agent nicht in Sekunden, sondern nach 4–12 Minuten und nur zu Arbeitszeiten.'],
+ ['headset','Übergabe an Mensch','Sofort an einen Menschen bei: Wunsch nach persönlichem Kontakt, Beschwerde, medizinischer Frage, Unsicherheit des Agenten.'],
+ ['database','Ziel nachprüfen','Ein Erfolg zählt erst, wenn er in der Datenbank bestätigt ist (z. B. Bestellung im OrderManager). Sagt jemand „gekauft“, prüft der Agent nach.'],
+ ['ticket-percent','Gutscheine & Knappheit','Begrenzte Gutscheine darf der Agent als knapp bewerben – aber nur mit der echten Restzahl aus der Plattform. Einmal-Codes werden je Kontakt vergeben und sind nur einmal gültig.'],
+ ['archive','Nach Erfolg','Wer gekauft oder zugesagt hat, wird für dieses Produkt archiviert und nicht mehr dafür beworben.'],
+ ['camera','Nachweis','Zu jeder gesendeten Nachricht speichert die Plattform automatisch einen Screenshot mit Zeitstempel – auch wenn ein Mensch über die Plattform sendet. Antworten werden als Text erfasst.']
+];
+
+const MCP=[
+ ['tasks.get_next','Holt die nächsten fälligen Aufgaben inkl. Kampagnenart, Regeln, Vorlagen, Gutscheincode und Kanal-Erlaubnis.'],
+ ['contacts.get','Liefert Kontakt mit Verlauf über alle Kanäle, Gedächtnis, Anrede (Du/Sie), Kauflink, Einwilligungen und Sperren.'],
+ ['contacts.get_purchase_history','Kaufhistorie aus dem OrderManager: gekaufte Analysemodule, Bestellungen, Umsatz, letzter Kauf, Abo.'],
+ ['contacts.check_allowed','Prüft vor jedem Versand: Sperre, Einwilligung, Kontaktpause (Werbung/Update, aktiver Dialog), Ruhezeit, Erinnerungs-Limit. Bei „nein“ ist Senden technisch blockiert.'],
+ ['templates.render','Füllt eine Vorlage mit den Daten des Kontakts (Vorname, Anrede, Kauflink, Gutscheincode …).'],
+ ['vouchers.assign','Vergibt einen Gutschein an den Kontakt (Einmal-Code oder gemeinsamer Code) und liefert die echte Restzahl, z. B. „3 von 10 übrig“.'],
+ ['messages.send','Sendet über den gewählten Kanal – bei Personas mit natürlicher Verzögerung. Die Plattform erstellt automatisch den Screenshot.'],
+ ['outbox.queue_for_human','Legt einen Entwurf in „Senden“ ab, wenn die Kampagne „KI entwirft, Mensch sendet“ verlangt.'],
+ ['messages.fetch_replies','Holt neue Antworten aus allen Kanälen und ordnet sie Kontakt und Kampagne zu.'],
+ ['contacts.remember','Speichert Ziele, Interessen, Einwände, Kanalwunsch und Anrede („möchte abnehmen“, „Du“).'],
+ ['contacts.plan','Legt den Kontaktplan an: was als Nächstes wann geplant ist und warum (z. B. Kontaktpause).'],
+ ['orders.verify_goal','Prüft im OrderManager, ob das Kampagnenziel wirklich eingetreten ist (z. B. Bestellung Performance Plus).'],
+ ['contacts.set_do_not_contact','Setzt die Sperre „nicht mehr kontaktieren“ – nur ein Mensch kann sie wieder aufheben.'],
+ ['contacts.mark_converted','Markiert bestätigten Erfolg und archiviert den Kontakt für dieses Produkt.'],
+ ['handover.request_human','Übergibt das Gespräch an einen Menschen und pausiert den Agenten für diesen Kontakt.'],
+ ['groups.add_contacts','Erweitert eine Zielgruppe um neu gefundene Kontakte (mit Quelle und Fundstelle).'],
+ ['campaigns.report','Meldet Fortschritt, Auswertungen und Ergebnisse an den Leitstand.']
+];
+
+/* ===================== Bausteine ===================== */
+const hero=(eb,h,p,acts='')=>`<section class="hero"><div class="eyebrow">${eb}</div><h1>${h}</h1>${p?`<p>${p}</p>`:''}${acts?`<div class="acts">${acts}</div>`:''}</section>`;
+const sec=(t,right='')=>`<div class="sec"><h2>${t}</h2>${right}</div>`;
+const spark=a=>{const m=Math.max(1,...a),w=96,h=30;const pts=a.map((v,i)=>`${(i*(w/(a.length-1))).toFixed(1)},${(h-3-(v/m)*(h-6)).toFixed(1)}`).join(' ');
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}"><polyline points="${pts}" fill="none" stroke="#8C1D6E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`};
+const waiting=()=>OUTBOX.filter(o=>o.state==='wartet');
+
+// Karte: Kampagne
+function campCard(c){const s=c.stats,ty=TYPES[c.type],pu=PURP[c.purpose]||PURP.upsell,fl=PFUN[c.purpose]||['kontaktiert','Antworten','Erfolge','Opt-outs'];
+  return `<div class="camp ${c.status} ${c.type==='update'?'upd':''}" onclick="go('camp/${c.id}')">
+   <div class="hd"><span class="tile">${ic(c.type==='update'?'bell':pu[1])}</span><div style="min-width:0;flex:1"><div class="nm">${c.name}</div><div class="grp">${c.groups.map(g=>G(g).name).join(' · ')}</div><div class="typ">${ic('target')} ${pu[0]}${c.purpose==='find'?'':` · ${ty.name}, Pause ${ty.pause} Tage`}</div></div></div>
+   <div class="stline">${sbadge(c.status)}<div class="chs">${c.purpose==='find'?(c.find.src.map(x=>`<span class="gtag">${x}</span>`).join('')):[...c.pref,...c.allowed].map(chi).join('')}</div></div>
+   <div class="funnel"><div><b>${fmt(s.contacted)}</b><span>${fl[0]}</span></div><div><b>${fmt(s.replied)}</b><span>${fl[1]}</span></div><div><b>${fmt(s.converted)}</b><span>${fl[2]}</span></div><div><b>${s.optout}</b><span>${fl[3]}</span></div></div>
+   <div class="bar" title="Fortschritt der Zielgruppe"><i style="width:${pct(s.converted,s.target)}%;background:var(--plum)"></i><i style="width:${Math.max(0,pct(s.replied-s.converted,s.target))}%;background:#C890B9"></i><i style="width:${Math.max(0,pct(s.contacted-Math.max(s.replied,s.converted),s.target))}%;background:#E7CFE0"></i></div>
+   <div class="ft"><span>${ic('target')} ${c.goal} · ${pct(s.contacted,s.target)} % erreicht</span>${spark(c.trend)}</div>
+   ${c.offer.limit?`<div class="ft" style="margin-top:6px"><span class="vleft">${ic('ticket-percent')} ${vLeft(c.offer)} von ${c.offer.limit} Gutscheinen übrig</span></div>`:''}
+   <div class="ft" style="margin-top:2px"><span>${ic('zap')} ${c.next}</span>${s.human?`<span class="flag">${ic('headset')} ${s.human} bei Menschen</span>`:''}</div>
+  </div>`}
+// Karte: Zielgruppe
+function groupCard(g){const n=CONTACTS.filter(k=>k.groups.includes(g.id)).length;
+  return `<div class="gcard"><div class="hd"><span class="circ">${ic('users')}</span><div class="nm">${g.name}</div></div>
+   <div class="num">${fmt(g.n)}<small>Personen</small></div>
+   ${g.grow?`<span class="grow">${ic('trending-up')} +${g.grow} in 7 Tagen</span>`:'<span class="grow" style="color:rgba(255,255,255,.6)">stabil</span>'}
+   <dl><dt>Quelle</dt><dd>${g.src}</dd><dt>Erweiterung</dt><dd>${g.auto}</dd><dt>Kampagnen</dt><dd>${CAMPS.filter(c=>c.groups.includes(g.id)).map(c=>c.name).join(', ')||'–'}</dd></dl>
+   <div class="acts"><button class="btn lime sm" onclick="cGroup='${g.id}';go('contacts')">${ic('contact')} Kontakte${n?` · ${n} Beispiele`:''}</button>${g.cat.startsWith('kalt')?`<button class="btn ghost sm" onclick="W.purpose='find';W.groups=['${g.id}'];go('new')">${ic('user-plus')} Neue Leads finden</button>`:''}</div></div>`}
+// Karte: Kontakt
+function contactCard(k){const ini=k.name.split(' ').map(p=>p[0]).join('');
+  return `<div class="ccard ${k.dnc?'dnc':''}" onclick="go('contact/${k.id}')">
+   <div class="lead"><span class="av">${k.dnc?ic('ban'):ini}<span class="uic">${ic('user-round')}</span></span><div style="min-width:0"><div class="t">${k.name}</div><div class="s">${k.anrede[0]} · ${Object.keys(k.ch).map(c=>CH[c][0]).join(' · ')} · letzter Kontakt ${k.last>90?'noch keiner':agoTxt(k.last)}</div></div></div>
+   <div class="mid">${k.groups.map(x=>`<span class="gtag">${G(x).name}</span>`).join('')}</div>
+   <div class="rt"><span class="st ${k.status[1]}">${k.status[0]}</span><span class="chevw">${ic('chevron-right')}</span></div></div>`}
+// Karte: Vorlage
+function tplCard(t){const cs=CAMPS.filter(c=>c.tpl.includes(t.id));
+  return `<div class="tcard" onclick="openTpl('${t.id}')"><div class="hd"><span class="tile">${ic('file-text')}</span><div style="min-width:0;flex:1"><div class="nm">${t.name}</div><div class="muted">${CH[t.ch][0]} · ${t.anrede}-Form${t.meta?' · '+t.meta:''}</div></div>${chi(t.ch)}</div>
+   ${t.html?mailHTML(t):`<div class="pv">${t.subj?`<b>${hlVars(t.subj)}</b><br>`:''}${hlVars(t.text)}</div>`}
+   <div class="ft"><span>${cs.length?`In: ${cs.map(c=>c.name).join(', ')}`:'In keiner Kampagne'}</span><span>${fmt(t.used)}× gesendet · geändert ${agoTxt(t.upd)}</span></div></div>`}
+
+function shotHTML(e,k){const st=CH[e.ch][3],time=dt(e.d,e.t);
+  if(st==='em')return `<div class="shot em"><div class="bar2">${ic('mail')} Gesendet · E-Mail</div><div class="body"><div class="hdr"><b>Von:</b> Novogenia &lt;service@novogenia.com&gt;<br><b>An:</b> ${fa(k,'email')}<br><b>Betreff:</b> ${esc(e.subj||'')}<br><b>Datum:</b> ${time}</div>${esc(e.text)}</div></div>`;
+  if(st==='wa')return `<div class="shot wa"><div class="bar2">${ic('message-circle')} ${k.name} · ${fa(k,'whatsapp')}</div><div class="body"><div class="msg">${esc(e.text)}<small>${e.t} ✓✓</small></div></div></div>`;
+  if(st==='li')return `<div class="shot li"><div class="bar2">${ic('linkedin')} Nachricht an ${k.name}</div><div class="body"><div class="msg">${esc(e.text)}</div><div class="muted" style="margin-top:8px">${time}</div></div></div>`;
+  if(st==='ig')return `<div class="shot ig"><div class="bar2">${ic('instagram')} Direktnachricht · ${fa(k,'instagram')}</div><div class="body"><div class="msg">${esc(e.text)}</div><div class="muted" style="margin-top:8px;text-align:right">${time}</div></div></div>`;
+  if(st==='yt')return `<div class="shot yt"><div class="bar2">${ic('youtube')} Kommentar unter Video von ${fa(k,'youtube')}</div><div class="body"><div class="msg"><b>@novogenia</b> · ${agoTxt(e.d)}<br>${esc(e.text)}</div></div></div>`;
+  return `<div class="shot pu"><div class="bar2">${ic('smartphone')} Push · GEN(e)IUS-App</div><div class="body"><div class="msg"><b>GEN(e)IUS</b><br>${esc(e.text)}</div></div></div>`}
+function openShot(kid,i){const k=K(kid),e=k.tl[i];
+  const fid=`shot_${e.ch}_${k.id}_${dday(e.d).split('.').reverse().join('')}_${e.t.replace(':','')}.png`;
+  modal(`<div class="mh"><b>${ic('camera')} Screenshot der gesendeten Nachricht</b><button class="btn line sm" onclick="closeModal()">${ic('x')} Schließen</button></div>${shotHTML(e,k)}
+   <dl class="evid"><dt>Kontakt</dt><dd>${k.name}</dd><dt>Kanal</dt><dd>${CH[e.ch][0]}</dd><dt>Kampagne</dt><dd>${C(e.camp).name}</dd>${e.tpl?`<dt>Vorlage</dt><dd>${T(e.tpl).name}</dd>`:''}<dt>Gesendet</dt><dd>${dt(e.d,e.t)}${e.delay?` · natürliche Antwortzeit ${e.delay} Min.`:''}</dd><dt>Gesendet von</dt><dd>${e.by}</dd><dt>Datei</dt><dd>${fid}</dd><dt>Prüfsumme</dt><dd>SHA-256 · ${(k.id+e.d+e.t+e.ch).split('').map(c=>c.charCodeAt(0).toString(16)).join('').slice(0,24)}…</dd></dl>`)}
+let tTab='design';
+function openTpl(id){const t=T(id);
+  modal(`<div class="mh"><b>${ic('file-text')} ${t.name}</b><button class="btn line sm" onclick="closeModal()">${ic('x')} Schließen</button></div>
+   <dl class="evid" style="margin:0 0 12px"><dt>Kanal</dt><dd>${CH[t.ch][0]}</dd><dt>Anrede</dt><dd>${t.anrede}-Form (wird pro Kontakt automatisch angepasst)</dd><dt>Kampagnen</dt><dd>${CAMPS.filter(c=>c.tpl.includes(t.id)).map(c=>c.name).join(', ')||'–'}</dd></dl>
+   ${t.subj?`<div class="muted" style="font-weight:700">Betreff</div><div style="margin:4px 0 10px">${hlVars(t.subj)}</div>`:''}
+   ${t.html?`<div class="tabs">${[['design','Design'],['code','HTML-Code'],['text','Nur-Text-Fassung']].map(([k,l])=>`<button class="${tTab===k?'on':''}" onclick="tTab='${k}';openTpl('${t.id}')">${l}</button>`).join('')}</div>
+    ${tTab==='design'?mailHTML(t):tTab==='code'?`<textarea class="code">${esc(mailCode(t))}</textarea>`:`<div style="background:#FBFCF0;border:1px dashed #D8DDA8;border-radius:12px;padding:12px">${hlVars(t.text)}</div>`}`
+   :`<div class="muted" style="font-weight:700">Text</div><div style="margin-top:4px;background:#FBFCF0;border:1px dashed #D8DDA8;border-radius:12px;padding:12px">${hlVars(t.text)}</div>`}
+   <p class="muted">Der Agent füllt die Platzhalter je Kontakt und darf den Text an Gedächtnis und Gesprächsverlauf anpassen – Inhalt und Angebot bleiben wie in der Vorlage.</p>
+   <button class="btn dark sm" onclick="toast('Vorlage bearbeiten (Demo)')">Bearbeiten</button>`)}
+let ntCh='email';
+function newTpl(){modal(`<div class="mh"><b>${ic('file-text')} Neue Vorlage</b><button class="btn line sm" onclick="closeModal()">${ic('x')} Schließen</button></div>
+  <div class="mform"><label class="l">Name</label><input id="ntName" type="text" placeholder="z. B. Performance Plus – Dankeschön">
+  <div class="grid g2"><div><label class="l">Kanal</label><select id="ntCh" onchange="ntCh=this.value;document.getElementById('ntMail').style.display=this.value==='email'?'block':'none'">${Object.keys(CH).filter(k=>CH[k][4]==='verbunden').map(k=>`<option value="${k}" ${ntCh===k?'selected':''}>${CH[k][0]}</option>`).join('')}</select></div><div><label class="l">Anrede</label><select id="ntAn"><option>Du</option><option>Sie</option></select></div></div>
+  <div id="ntMail" style="display:${ntCh==='email'?'block':'none'}"><label class="l">Betreff</label><input id="ntSubj" type="text"><div class="grid g2"><div><label class="l">Überschrift im Design</label><input id="ntHead" type="text" placeholder="z. B. Danke für dein Vertrauen"></div><div><label class="l">Button-Text</label><input id="ntBtn" type="text" placeholder="z. B. Jetzt ansehen"></div></div></div>
+  <label class="l">Text (Platzhalter mit {{…}}, z. B. {{Vorname}}, {{Kauflink}}, {{Gutscheincode}})</label><textarea id="ntText"></textarea>
+  <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end"><button class="btn line sm" onclick="closeModal()">Abbrechen</button><button class="btn dark sm" onclick="saveTpl()">${ic('check')} Vorlage speichern</button></div></div>`)}
+function saveTpl(){const v=id=>(document.getElementById(id)||{}).value?.trim()||'';if(!v('ntName')||!v('ntText'))return toast('Bitte Name und Text ausfüllen');
+  const ch=v('ntCh'),t={id:'t'+Date.now(),name:v('ntName'),ch,anrede:v('ntAn'),subj:v('ntSubj'),text:v('ntText'),used:0,upd:0};
+  if(ch==='email')t.html=[v('ntHead')||v('ntName'),v('ntBtn')||'Mehr erfahren'];TPL.unshift(t);closeModal();toast('Vorlage gespeichert');render()}
+function newGroup(){modal(`<div class="mh"><b>${ic('users')} Neue Zielgruppe</b><button class="btn line sm" onclick="closeModal()">${ic('x')} Schließen</button></div>
+  <div class="mform"><label class="l">Name</label><input id="ngName" type="text" placeholder="z. B. Fitnessstudios Salzburg">
+  <label class="l">Kategorie</label><select id="ngCat">${GCATS.map(c=>`<option value="${c[0]}">${c[1]}</option>`).join('')}</select>
+  <label class="l">Quelle</label><input id="ngSrc" type="text" placeholder="z. B. CSV-Import, OrderManager-Filter, Agent-Recherche">
+  <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end"><button class="btn line sm" onclick="closeModal()">Abbrechen</button><button class="btn dark sm" onclick="saveGroup()">${ic('check')} Zielgruppe speichern</button></div></div>`)}
+function saveGroup(){const v=id=>document.getElementById(id).value.trim();if(!v('ngName'))return toast('Bitte einen Namen eingeben');
+  GROUPS.push({id:'g'+Date.now(),cat:v('ngCat'),name:v('ngName'),n:0,grow:0,src:v('ngSrc')||'manuell',auto:v('ngCat').startsWith('kalt')?'über Kampagne „Neue Leads finden“':'manuell'});closeModal();toast('Zielgruppe gespeichert');render()}
+function modal(h){document.getElementById('mbox').innerHTML=h;document.getElementById('modal').classList.add('on')}
+function closeModal(){document.getElementById('modal').classList.remove('on')}
+function toast(t){const x=document.getElementById('toast');x.textContent=t;x.classList.add('on');clearTimeout(x._t);x._t=setTimeout(()=>x.classList.remove('on'),2800)}
+
+function timeline(k){return `<div class="tl">${k.tl.map((e,i)=>{
+  if(e.dir==='sys')return `<div class="ev sys"><span class="dot" style="background:var(--plum)">${ic(e.icon||'zap')}</span><div class="meta">${dt(e.d,e.t)}</div><div class="bub">${esc(e.text)}</div></div>`;
+  const out=e.dir==='out',hum=out&&/Mensch/.test(e.by||'');
+  return `<div class="ev ${out?(hum?'human':'out'):'in'}"><span class="dot" style="background:${CH[e.ch][2]}">${ic(out?'send':'message-circle')}</span>
+   <div class="meta"><b>${out?'Gesendet':'Antwort'}</b> · ${CH[e.ch][0]} · ${dt(e.d,e.t)} · ${C(e.camp).name}${out?` · von ${e.by}`:''}${e.delay?` <span class="delay">${ic('timer')} nach ${e.delay} Min.</span>`:''}</div>
+   <div class="bub">${e.subj?`<b>${esc(e.subj)}</b><br>`:''}${esc(e.text)}</div>
+   ${out?`<button class="shotbtn" onclick="openShot('${k.id}',${i})">${ic('camera')} Screenshot ansehen</button>`:''}</div>`}).join('')}</div>`}
+
+/* ===================== Navigation ===================== */
+const NAV=[
+ ['board','Leitstand','layout-dashboard'],['camps','Kampagnen','megaphone'],['new','Neue Kampagne','plus'],
+ ['groups','Zielgruppen','users'],['contacts','Kontakte','contact'],['templates','Vorlagen','file-text'],null,
+ ['outbox','Senden','send'],['inbox','Posteingang','inbox'],null,
+ ['agent','Agent & MCP','bot'],['channels','Kanäle','plug'],['rules','Regeln','shield-check']
+];
+const handovers=()=>CONTACTS.filter(k=>k.handover&&!k.done);
+function renderRail(cur){
+  document.getElementById('rail').innerHTML=`<div class="brand">NOVO<b>COMMUNICATE</b></div>`+NAV.map(n=>{
+    if(!n)return '<div class="sep"></div>';
+    const [id,l,i]=n,b=id==='inbox'?handovers().length:id==='outbox'?waiting().length:0;
+    return `<a class="nav ${cur===id?'on':''}" href="#${id}">${ic(i)}<span>${l}</span>${b?`<span class="bdg">${b}</span>`:''}</a>`}).join('')}
+const topbar=()=>`<div class="top"><div class="who"><span class="avatar">DW</span><span class="hide-m">Daniel Wallerstorfer · Novogenia</span><span class="demo">Demo-Daten</span></div>
+  <div class="chips" style="flex-wrap:nowrap"><span class="agentpill"><span class="pulse"></span>Agent arbeitet</span><button class="pill-btn hide-tv hide-m" onclick="tv()">${ic('maximize')} Großbild</button></div></div>`;
+function go(h){location.hash=h}
+
+/* ===================== Seiten ===================== */
+const P={};
+P.board=()=>{const act=CAMPS.filter(c=>c.status==='aktiv'),sum=k=>CAMPS.reduce((s,c)=>s+c.stats[k],0);
+  return topbar()+`<div class="kband">
+   <div class="kpi"><div class="l">${ic('megaphone')} Aktive Kampagnen</div><div class="v">${act.length}</div><div class="d">${CAMPS.filter(c=>c.status==='geplant').length} geplant · ${CAMPS.filter(c=>c.status==='pausiert').length} pausiert</div></div>
+   <div class="kpi"><div class="l">${ic('send')} Heute gesendet</div><div class="v" id="sentToday">1.472</div><div class="d">alle mit Screenshot</div></div>
+   <div class="kpi"><div class="l">${ic('message-circle')} Antworten</div><div class="v">${fmt(sum('replied'))}</div><div class="d">+46 seit gestern</div></div>
+   <div class="kpi"><div class="l">${ic('database')} Bestätigte Erfolge</div><div class="v">${fmt(CAMPS.filter(c=>c.type==='werbung'&&c.purpose!=='find').reduce((s,c)=>s+c.stats.converted,0))}</div><div class="d">im OrderManager geprüft</div></div>
+   <div class="kpi alert" onclick="go('outbox')" style="cursor:pointer"><div class="l">${ic('headset')} Warten auf Menschen</div><div class="v">${handovers().length+waiting().length}</div><div class="d">${handovers().length} Übergaben · ${waiting().length} zum Senden</div></div>
+   <div class="kpi"><div class="l">${ic('ban')} Gesperrt</div><div class="v">${sum('optout')}</div><div class="d">„nicht mehr kontaktieren“</div></div>
+  </div>
+  <div class="board"><div><div class="camps">${CAMPS.map(campCard).join('')}</div></div>
+   <aside class="feed"><h3><span class="pulse"></span> Live: Agent-Aktivität</h3><ul id="feed">${FEED.map(f=>feedLi(f[1],f[2],f[3],f[4],f[0])).join('')}</ul></aside></div>`};
+const feedLi=(i,c,t,s,m)=>`<li><span class="fi" style="background:${c}">${ic(i)}</span><div>${t}<small>${s} · ${m===0?'gerade eben':`vor ${m} Min.`}</small></div></li>`;
+let feedT=null,feedN=0;
+function startFeed(){clearInterval(feedT);feedT=setInterval(()=>{const ul=document.getElementById('feed');if(!ul)return clearInterval(feedT);
+  const f=FEEDLIVE[feedN++%FEEDLIVE.length];ul.insertAdjacentHTML('afterbegin',feedLi(f[0],f[1],f[2],f[3],0));
+  const s=document.getElementById('sentToday');if(s&&f[0]==='send')s.textContent=fmt(+s.textContent.replace(/\D/g,'')+40)},5000)}
+function tv(){document.body.classList.toggle('tv');if(document.body.classList.contains('tv')){document.documentElement.requestFullscreen?.().catch(()=>{});go('board');toast('Großbild-Modus · Esc zum Beenden')}else document.exitFullscreen?.().catch(()=>{})}
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('tv')});
+
+let cFilter='alle';
+P.camps=()=>{const list=CAMPS.filter(c=>cFilter==='alle'||c.status===cFilter);
+  return topbar()+hero('Kampagnen','Alle Kampagnen des Agenten','Jede Kampagne verbindet Zielgruppen mit einem Auftrag, Vorlagen, Angebot, Kanälen und Regeln. Der Agent arbeitet sie selbstständig ab.',`<a class="btn lime" href="#new">${ic('plus')} Neue Kampagne anlegen</a>`)
+  +`<div class="tools"><div class="fchips">${['alle','aktiv','geplant','pausiert','abgeschlossen'].map(f=>`<button class="fchip ${cFilter===f?'on':''}" onclick="cFilter='${f}';render()">${f[0].toUpperCase()+f.slice(1)} · ${f==='alle'?CAMPS.length:CAMPS.filter(c=>c.status===f).length}</button>`).join('')}</div></div>
+  <div class="camps">${list.map(campCard).join('')||'<div class="empty">Keine Kampagnen.</div>'}</div>`};
+
+P.camp=(id)=>{const c=C(id);if(!c)return P.camps();const s=c.stats,ty=TYPES[c.type];
+  const ks=CONTACTS.filter(k=>k.camps.includes(c.id));
+  const shots=[];ks.forEach(k=>k.tl.forEach((e,i)=>{if(e.dir==='out'&&e.camp===c.id)shots.push([k,e,i])}));
+  return topbar()+hero(`Kampagne · ${(PURP[c.purpose]||PURP.upsell)[0]}`,c.name,c.groups.map(g=>G(g).name).join(' · '),
+   `${sbadge(c.status)}${c.status==='aktiv'?`<button class="btn lime" onclick="toast('Kampagne pausiert (Demo)')">${ic('pause')} Pausieren</button>`:`<button class="btn lime" onclick="toast('Kampagne gestartet (Demo)')">${ic('play')} Starten</button>`}<a class="btn ghost" href="#new">${ic('repeat')} Als Vorlage nutzen</a><a class="btn ghost" href="#camps">${ic('chevron-left')} Alle Kampagnen</a>`)
+  +`<div class="kband">
+    <div class="kpi"><div class="l">Zielgruppe</div><div class="v">${fmt(s.target)}</div><div class="d">Personen</div></div>
+    <div class="kpi"><div class="l">Kontaktiert</div><div class="v">${fmt(s.contacted)}</div><div class="d">${pct(s.contacted,s.target)} %</div></div>
+    <div class="kpi"><div class="l">Antworten</div><div class="v">${fmt(s.replied)}</div><div class="d">${pct(s.replied,s.contacted)} % Antwortrate</div></div>
+    <div class="kpi"><div class="l">${ic('database')} Bestätigt</div><div class="v">${fmt(s.converted)}</div><div class="d">${s.claimed>s.converted?`${s.claimed-s.converted} gemeldet, noch nicht in DB`:'alle in Datenbank geprüft'}</div></div>
+    <div class="kpi ${s.human?'alert':''}"><div class="l">Bei Menschen</div><div class="v">${s.human}</div><div class="d">Übergaben offen</div></div>
+    <div class="kpi"><div class="l">Gesperrt</div><div class="v">${s.optout}</div><div class="d">Opt-outs</div></div></div>
+  <div class="grid g2">
+   <div class="card"><h3>${ic('target')} Auftrag an den Agenten</h3><p style="margin:6px 0 12px">${c.task}</p>
+     <dl class="kv"><dt>Ziel der Kampagne</dt><dd>${(PURP[c.purpose]||PURP.upsell)[0]}</dd>${c.find?`<dt>Gesucht</dt><dd>${c.find.who}</dd><dt>Quellen</dt><dd>${c.find.src.join(', ')} · max. ${c.find.perDay} neue Kontakte pro Tag</dd>`:`<dt>Nachrichtentyp</dt><dd>${ty.name} · Kontaktpause ${ty.pause} Tage</dd>`}<dt>Ziel</dt><dd>${c.goal}</dd><dt>Ziel prüfen</dt><dd>${c.check}</dd><dt>Angebot</dt><dd>${c.offer.disc?`${c.offer.disc} % bis ${c.offer.until} · ${c.offer.mode==='unique'?'Einmal-Codes je Kontakt':`Code <b>${c.offer.code}</b>`}${c.offer.limit?` · begrenzt auf ${c.offer.limit}`:''}`:'kein Rabatt'}</dd><dt>Kauflink</dt><dd>persönlicher Link je Kontakt (aus dem Kontaktprofil)</dd>
+     <dt>Erinnerungen</dt><dd>${c.rem.max?`höchstens ${c.rem.max}, alle ${c.rem.every} Tage`:'keine'}</dd><dt>Auftreten</dt><dd>${IDN[c.identity]}${c.persona?` („${c.persona}“, Antwort nach ${c.delay[0]}–${c.delay[1]} Min.)`:''}</dd><dt>Freigabe</dt><dd>${c.identity==='human'?'Mensch sendet jede Nachricht im Bereich „Senden“':APN[c.approval]}</dd><dt>Nach Erfolg</dt><dd>für dieses Produkt archivieren</dd></dl></div>
+   <div><div class="card"><h3>${ic('plug')} Kanäle</h3>
+     <div class="chrow"><b style="width:100px">Bevorzugt</b><div class="chs">${c.pref.map(chi).join('')||'–'}</div></div>
+     <div class="chrow"><b style="width:100px">Erlaubt</b><div class="chs">${c.allowed.map(chi).join('')||'–'}</div></div>
+     <div class="chrow"><b style="width:100px">Nicht erlaubt</b><span class="muted">${c.forbidden.map(k=>CH[k][0]).join(', ')||'–'}</span></div></div>
+    ${voucherCard(c)}
+    <div class="card" style="margin-top:16px"><h3>${ic('file-text')} Vorlagen dieser Kampagne</h3>${c.tpl.map(t=>`<div class="chrow" style="cursor:pointer" onclick="openTpl('${t}')">${chi(T(t).ch)}<b>${T(t).name}</b><span class="v">${T(t).anrede}-Form</span>${ic('chevron-right')}</div>`).join('')}</div></div>
+  </div>
+  ${sec('Gesendete Nachrichten mit Screenshot')}<p class="sub">Jede ausgehende Nachricht wird automatisch als Screenshot gespeichert.</p>
+  <div class="grid g3">${shots.map(([k,e,i])=>`<div class="card" style="padding:14px;cursor:pointer" onclick="openShot('${k.id}',${i})"><div style="pointer-events:none;max-height:190px;overflow:hidden">${shotHTML(e,k)}</div><div class="muted" style="margin-top:8px;display:flex;gap:6px;align-items:center">${ic('camera')} ${k.name} · ${CH[e.ch][0]} · ${agoTxt(e.d)}</div></div>`).join('')||'<div class="empty">Noch keine Nachrichten gesendet.</div>'}</div>
+  ${sec('Kontakte in dieser Kampagne')}<div class="rows">${ks.map(contactCard).join('')||'<div class="empty">Noch keine Kontakte.</div>'}</div>`};
+
+/* ----- Neue Kampagne ----- */
+let W={vMode:'single',vLimit:true,purpose:'upsell',check:CHECKS[0],newCheck:false,findSrc:['LinkedIn','Firmenwebsites'],type:'werbung',groups:['nd-end'],chan:{email:'p',push:'p',whatsapp:'a',linkedin:'f',instagram:'f',youtube:'f',social:'f'},tpl:{email:'t-perf-mail',push:'t-perf-push',whatsapp:'t-perf-wa'},identity:'ai',approval:'first10'};
+P.new=()=>{const seg=k=>`<div class="seg">${[['p','bevorzugt'],['a','erlaubt'],['f','nicht erlaubt']].map(([v,l])=>`<button class="${W.chan[k]===v?'on '+v:''}" onclick="W.chan['${k}']='${v}';render(true)">${l}</button>`).join('')}</div>`;
+  const tsel=k=>W.chan[k]==='f'?'<span class="tp muted">–</span>':`<select class="tp" onchange="W.tpl['${k}']=this.value"><option value="">Vorlage wählen …</option>${TPL.filter(t=>t.ch===k).map(t=>`<option value="${t.id}" ${W.tpl[k]===t.id?'selected':''}>${t.name}</option>`).join('')}<option value="new">+ Neue Vorlage anlegen</option></select>`;
+  const opt=(key,val,t,d,extra='')=>`<div class="opt ${W[key]===val?'on':''}" onclick="W.${key}='${val}';render(true)"><span class="radio"></span><div style="flex:1"><b>${t}</b><div class="muted">${d}</div>${W[key]===val?extra:''}</div></div>`;
+  return P._newHead(opt,seg,tsel)};
+P._newHead=(opt,seg,tsel)=>{
+  let N=0;const n=()=>++N;const find=W.purpose==='find';
+  return topbar()+hero('Neue Kampagne anlegen','Was soll der Agent erreichen?','Beschreibe Ziel und Regeln in eigenen Worten. Der Agent plant die Ansprache, hält sich an die Regeln und meldet geprüfte Ergebnisse in den Leitstand.')
+  +`<div class="fsec"><h3>${ic('target')} ${n()} · Ziel der Kampagne</h3><p class="h">Wähle, was die Kampagne bewirken soll.</p>
+    <div class="purps">${Object.entries(PURP).map(([k,p])=>`<button class="purp ${W.purpose===k?'on':''}" onclick="W.purpose='${k}';render(true)"><span class="tile">${ic(p[1])}</span><div><b>${p[0]}</b><span>${p[2]}</span></div></button>`).join('')}</div></div>
+  ${find?`<div class="fsec"><h3>${ic('user-plus')} ${n()} · Neue Leads finden – so arbeitet der Agent</h3>
+    <div class="explain"><b>Was passiert:</b><ol><li>Der Agent sucht in den gewählten Quellen nach Personen, die zu deiner Beschreibung passen.</li><li>Er prüft jede Person (passt Rolle, Firma, Land?) und gleicht Dubletten mit bestehenden Kontakten ab.</li><li>Passende Personen legt er als Kontakt in der Zielgruppe an – mit Fundstelle (Link), Rolle, Firma und Grund, warum sie passt.</li><li>Es wird <b>niemand angeschrieben</b>. Die Ansprache übernimmt eine eigene Kampagne, z. B. „Leads zu Resellern machen“.</li></ol></div>
+    <label class="l">Wen suchen wir?</label><textarea id="wWho">Health-Manager, BGM-Leitung oder HR-Wellbeing in Unternehmen ab 500 Mitarbeitenden in Österreich und Deutschland.</textarea>
+    <label class="l">Quellen</label><div class="pick">${['LinkedIn','Instagram','YouTube','Firmenwebsites','Branchenverzeichnisse','Messe-Ausstellerlisten'].map(x=>`<button class="pk ${W.findSrc.includes(x)?'on':''}" onclick="W.findSrc=W.findSrc.includes('${x}')?W.findSrc.filter(y=>y!=='${x}'):[...W.findSrc,'${x}'];render(true)">${x}</button>`).join('')}</div>
+    <div class="grid g2"><div><label class="l">In welche Zielgruppe?</label><select>${GROUPS.filter(g=>g.cat.startsWith('kalt')).map(g=>`<option ${W.groups.includes(g.id)?'selected':''}>${g.name}</option>`).join('')}<option>+ Neue Zielgruppe</option></select></div><div><label class="l">Max. neue Kontakte pro Tag</label><input type="number" value="20" min="1"></div></div>
+    <div class="note">${ic('circle-alert')}<div>Gespeichert werden nur öffentlich und beruflich zugängliche Angaben (Name, Rolle, Firma, Profil-Link). Wer so in unsere Liste kommt, muss bei der ersten Ansprache darüber informiert werden, woher wir die Daten haben (DSGVO Art. 14).</div></div></div>`
+  :`<div class="fsec"><h3>${ic('list-checks')} ${n()} · Nachrichtentyp</h3><p class="h">Bestimmt die Kontaktpause.</p>
+    ${Object.entries(TYPES).map(([k,t])=>opt('type',k,`${t.name} · Kontaktpause ${t.pause} Tage`,t.desc)).join('')}</div>
+  <div class="fsec"><h3>${ic('users')} ${n()} · Zielgruppe</h3><p class="h">Ein Kontakt kann in mehreren Zielgruppen sein – er wird trotzdem nur einmal angeschrieben.</p>
+    ${GCATS.map(([cid,cn])=>`<div class="pkcat">${cn}</div><div class="pick">${GROUPS.filter(g=>g.cat===cid).map(g=>`<button class="pk ${W.groups.includes(g.id)?'on':''}" onclick="W.groups=W.groups.includes('${g.id}')?W.groups.filter(x=>x!=='${g.id}'):[...W.groups,'${g.id}'];render(true)">${g.name} · ${fmt(g.n)}</button>`).join('')}</div>`).join('')}</div>`}
+  <div class="fsec"><h3>${ic('message-square-text')} ${n()} · Auftrag & Erfolg</h3><p class="h">So, wie du es einem Mitarbeiter sagen würdest.</p>
+    <label class="l">Kampagnenname</label><input type="text" id="wName" value="${find?'LinkedIn: neue Health-Manager finden – Welle 2':'Performance Plus Upsell – Woche 46'}">
+    <label class="l">Auftrag</label><textarea id="wTask">${find?'Finde neue Health-Manager großer Unternehmen und lege sie mit Fundstelle an. Niemanden anschreiben.':'Wir haben nun den neuen Test Performance Plus, der als Upsell ohne weitere Analyse möglich ist. Versuche, die NovoDaily-Endkunden dafür zu gewinnen. Beziehe dich, wo bekannt, auf ihre Ziele (z. B. Abnehmen, Laufen) und auf ihre Kaufhistorie.'}</textarea>
+    <label class="l">Woran erkennen wir Erfolg?</label><input type="text" value="${find?'Neuer Kontakt mit Fundstelle, keine Dublette':'Kauf von Performance Plus'}">
+    <label class="l">Erfolg prüfen in</label>
+    <select onchange="if(this.value==='__new'){W.newCheck=true}else{W.check=this.value;W.newCheck=false}render(true)">${CHECKS.map(c=>`<option ${!W.newCheck&&W.check===c?'selected':''}>${esc(c)}</option>`).join('')}<option value="__new" ${W.newCheck?'selected':''}>+ Eigene Prüfung anlegen …</option></select>
+    ${W.newCheck?`<div class="inl"><input type="text" id="wNewCheck" placeholder="z. B. Business Central: Rechnung an Partner gestellt"><button class="btn dark sm" onclick="saveCheck()">${ic('check')} Speichern</button></div>`:''}
+    <label class="l">So soll geprüft werden (für den Agenten)</label><textarea id="wCheckTxt" style="min-height:80px" placeholder="Beschreibe genau, wann das Ziel erreicht ist …">${find?'Zählt, wenn Rolle und Firmengröße passen und die Person noch nicht in einer Zielgruppe ist.':'Zählt nur, wenn im OrderManager nach dem ersten Kontakt eine bezahlte Bestellung mit dem Produkt „Performance Plus“ für diese Kundennummer existiert. Stornierte Bestellungen zählen nicht.'}</textarea></div>
+`+(find?'':P._newRest(opt,seg,tsel,n))+formbar()};
+P._newRest=(opt,seg,tsel,n)=>`  <div class="fsec"><h3>${ic('ticket-percent')} ${n()} · Angebot</h3>
+    <div class="grid g2"><div><label class="l">Rabatt in %</label><input type="number" value="5" min="0" max="50"></div><div><label class="l">Gültig bis</label><input type="date" value="2026-11-08"></div></div>
+    <label class="l">Art der Gutscheine</label>
+    ${opt('vMode','single','Ein Code für alle','Alle Kontakte bekommen denselben Code.',`<div class="sub2" onclick="event.stopPropagation()"><label class="l">Gutscheincode</label><input type="text" value="PERF5"></div>`)}
+    ${opt('vMode','unique','Einmal-Codes – jeder Kontakt bekommt einen eigenen','Jeder Code ist genau einmal gültig. Die Plattform vergibt sie und merkt sich, wer welchen Code hat.',`<div class="sub2" onclick="event.stopPropagation()"><div class="grid g2"><div><label class="l">Präfix</label><input type="text" value="PERF5-"></div><div><label class="l">Codes</label><select><option>Automatisch erzeugen (im Shop anlegen)</option><option>Eigene Liste einfügen</option><option>CSV aus dem Shop importieren</option></select></div></div><div class="vcodes">${vCodes({code:'PERF5-'},6).map(x=>`<span class="vcode">${x}</span>`).join('')}<span class="muted">…</span></div></div>`)}
+    <label class="chk"><input type="checkbox" ${W.vLimit?'checked':''} onchange="W.vLimit=this.checked;render(true)"> Anzahl der Gutscheine begrenzen</label>
+    ${W.vLimit?`<div class="grid g2"><div><label class="l">Anzahl Gutscheine</label><input type="number" value="10" min="1"></div><div><label class="l">Wenn alle weg sind</label><select><option>Ohne Gutschein weiterbewerben</option><option>Kampagne pausieren</option><option>Kampagne beenden</option></select></div></div>
+    <div class="explain" style="margin-top:10px"><b>So nutzt der Agent die Begrenzung:</b> Er darf sagen „Ich habe nur 10 Gutscheine zu verteilen – es sind noch 3 übrig.“ Die Zahl kommt immer live aus der Plattform und ist echt. Erfundene Knappheit ist nicht erlaubt.</div>`:''}
+    <label class="chk"><input type="checkbox" checked> Persönlichen Kauflink des Kontakts mitschicken – jeder Kontakt hat seinen eigenen Link im Profil</label></div>
+  <div class="fsec"><h3>${ic('plug')} ${n()} · Kanäle & Vorlagen</h3><p class="h">Bevorzugte Kanäle zuerst, erlaubte nur bei Bedarf (z. B. Kanalwunsch des Kontakts). Pro Kanal verweist die Kampagne auf eine Vorlage.</p>
+    <div class="chtbl">${Object.keys(CH).filter(k=>CH[k][4]==='verbunden').map(k=>`<div style="display:flex;gap:10px;align-items:center">${chi(k)}<b>${CH[k][0]}</b></div>${seg(k)}${tsel(k)}`).join('')}</div>
+    <p class="muted" style="margin:12px 0 0">Anruf und Web-Chat folgen später.</p></div>
+  <div class="fsec"><h3>${ic('repeat')} ${n()} · Erinnerungen</h3>
+    <div class="grid g3"><div><label class="l">Max. Erinnerungen</label><input type="number" value="2" min="0" max="3"></div><div><label class="l">Abstand in Tagen</label><input type="number" value="5" min="4"></div><div><label class="l">Kontaktpause</label><input type="text" value="${TYPES[W.type].pause} Tage (${TYPES[W.type].name})" disabled></div></div>
+    <p class="muted" style="margin:10px 0 0">Antwortet der Kontakt, ist der Dialog aktiv und die Pause ausgesetzt. Schreibt er nicht mehr zurück, gilt die Pause wieder ab der letzten Nachricht.</p></div>
+  <div class="fsec"><h3>${ic('bot')} ${n()} · Wie tritt der Agent auf?</h3>
+    ${opt('identity','ai','Offen als KI-Agent','„Dein Novogenia KI-Assistent“ – klar erkennbar. Antwortet sofort. Empfohlen für Endkunden.')}
+    ${opt('identity','persona','Persona mit Namen und KI-Hinweis','Schreibt persönlich als z. B. „Lisa · Novogenia-Team“, mit Hinweis „KI-gestützt“ in Signatur bzw. erster Nachricht.',`<div class="sub2" onclick="event.stopPropagation()"><div class="grid g3"><div><label class="l">Persona-Name</label><input type="text" value="Lisa · Novogenia-Team"></div><div><label class="l">Antwort frühestens nach</label><input type="text" value="4 Minuten"></div><div><label class="l">Antwort spätestens nach</label><input type="text" value="12 Minuten"></div></div><label class="chk"><input type="checkbox" checked> Nur zu Arbeitszeiten antworten (Mo–Fr 8–18 Uhr)</label></div>`)}
+    ${opt('identity','human','KI entwirft – Mensch sendet','Der Agent schreibt alle Entwürfe, sie sammeln sich im Bereich „Senden“. Ein Mitarbeiter wählt aus und sendet gesammelt aus der Plattform – Zeitpunkt und Absender werden erfasst.')}
+    <div class="note">${ic('circle-alert')}<div>EU AI Act (Art. 50, seit 2. August 2026): Menschen müssen erkennen können, dass sie mit einer KI schreiben. Deshalb trägt die Persona einen KI-Hinweis. Ohne Hinweis geht es nur mit „Mensch sendet“ – dann ist es die Nachricht des Mitarbeiters.</div></div></div>
+  ${W.identity!=='human'?`<div class="fsec"><h3>${ic('eye')} ${n()} · Freigabe</h3>
+    ${opt('approval','auto','Automatisch senden','Der Agent sendet selbstständig im Rahmen der Regeln.')}
+    ${opt('approval','first10','Erste 10 Nachrichten freigeben','Du prüfst die ersten Texte, danach läuft es automatisch.')}
+    ${opt('approval','human','Jede Nachricht freigeben','Jeder Entwurf landet im Bereich „Senden“.')}</div>`:''}
+  <div class="fsec"><h3>${ic('heart')} ${n()} · Verhaltensregeln</h3><p class="h">Globale Regeln gelten immer (inkl. Du/Sie je Kontakt). Hier kannst du sie für diese Kampagne ergänzen.</p>
+    <div class="explain"><b>Grundhaltung (gilt immer):</b> Der Agent steht auf der Seite des Kunden und versucht, für ihn beim Unternehmen etwas zu erreichen – z. B. „Ich habe für dich noch einen der Gutscheine reservieren können.“</div>
+    ${['Nicht aufdringlich – maximal ein Hinweis auf den Rabatt pro Nachricht','Auf bekannte Ziele, Trigger und Kaufhistorie eingehen','Keine Gesundheitsversprechen, keine Therapie-Empfehlungen','Bei Fragen zu Medikamenten sofort an Menschen übergeben'].map(t=>`<label class="chk"><input type="checkbox" checked> ${t}</label>`).join('')}
+    <label class="l">Zusätzliche Regeln</label><textarea style="min-height:70px">Kurz halten, maximal 4 Sätze.</textarea></div>
+`;
+const formbar=()=>`<div class="formbar"><button class="btn ghost" onclick="toast('Vorschau: 3 Beispiele erstellt (Demo)')">${ic('eye')} Beispiele ansehen</button><button class="btn lime" onclick="submitCamp()">${ic('plus')} Kampagne anlegen</button></div>`;
+function saveCheck(){const v=document.getElementById('wNewCheck').value.trim();if(!v)return toast('Bitte zuerst beschreiben, wo geprüft wird');CHECKS.push(v);W.check=v;W.newCheck=false;toast('Prüfung gespeichert – steht ab jetzt in der Auswahl');render(true)}
+function submitCamp(){const name=document.getElementById('wName').value||'Neue Kampagne',task=document.getElementById('wTask').value;
+  const ch=Object.keys(W.chan);
+  CAMPS.unshift({id:'n'+Date.now(),purpose:W.purpose,find:W.purpose==='find'?{who:(document.getElementById('wWho')||{}).value||'',src:[...W.findSrc],perDay:20}:null,type:W.type,name,groups:[...W.groups],status:'geplant',task,offer:{disc:5,until:'08.11.2026',code:'PERF5'},tpl:ch.filter(k=>W.chan[k]!=='f'&&W.tpl[k]&&W.tpl[k]!=='new').map(k=>W.tpl[k]),
+    pref:ch.filter(k=>W.chan[k]==='p'),allowed:ch.filter(k=>W.chan[k]==='a'),forbidden:ch.filter(k=>W.chan[k]==='f'),rem:{max:2,every:5},identity:W.identity,persona:W.identity==='persona'?'Lisa · Novogenia-Team':'',delay:[4,12],approval:W.approval,
+    goal:W.purpose==='find'?'Neue Kontakte in der Zielgruppe':'Kauf Performance Plus',check:W.check+' – '+(document.getElementById('wCheckTxt')||{}).value,stats:{target:W.groups.reduce((s,g)=>s+G(g).n,0),contacted:0,replied:0,converted:0,claimed:0,optout:0,human:0},trend:[0,0,0,0,0,0,0,0],next:'Agent plant die Ansprache …'});
+  toast('Kampagne angelegt – der Agent plant jetzt die Ansprache');go('camp/'+CAMPS[0].id)}
+
+/* ----- Zielgruppen ----- */
+P.groups=()=>topbar()+hero('Zielgruppen','Wen sprechen wir an?','Zielgruppen sind Listen von Personen mit gemeinsamem Merkmal – sortiert nach bestehenden Kunden, bestehenden Resellern und Kaltakquise. Bestehende Kunden und Reseller kommen aus OrderManager und NovoPilot. Kaltakquise-Gruppen füllt der Agent über Kampagnen mit dem Ziel „Neue Leads finden“. Jede Person ist über alle Gruppen hinweg ein Kontakt.',`<button class="btn lime" onclick="newGroup()">${ic('plus')} Neue Zielgruppe</button><button class="btn ghost" onclick="toast('CSV-Import (Demo)')">${ic('archive')} Liste importieren</button>`)
+ +GCATS.map(([cid,cn,ci])=>`<div class="gcat">${sec(`<span class="catttl">${ic(ci)} ${cn}</span>`,`<span class="muted" style="color:rgba(255,255,255,.6)">${fmt(GROUPS.filter(g=>g.cat===cid).reduce((s,g)=>s+g.n,0))} Personen</span>`)}
+   ${cid.startsWith('kalt')?`<p class="sub">Keine Einwilligung für E-Mail oder WhatsApp – Ansprache nur dort, wo die Person gefunden wurde oder selbst geschrieben hat, persönlich und einzeln.</p>`:'<p class="sub">Einwilligungen aus dem Kundenkonto bzw. Partnervertrag.</p>'}
+   <div class="gcards">${GROUPS.filter(g=>g.cat===cid).map(groupCard).join('')}</div></div>`).join('');
+
+/* ----- Kontakte ----- */
+let cGroup='alle',cQ='';
+P.contacts=()=>{const q=cQ.toLowerCase();const list=CONTACTS.filter(k=>(cGroup==='alle'||k.groups.includes(cGroup))&&(!q||k.name.toLowerCase().includes(q)));
+  return topbar()+hero('Kontakte','Jede Person – ein durchgehender Faden','Alles, was wir mit einer Person besprochen haben, über alle Kanäle: Verlauf mit Screenshots, Kaufhistorie, Gedächtnis, Anrede, Kontaktplan, Einwilligungen und Sperren.')
+  +`<div class="tools"><label class="search">${ic('search')}<input placeholder="Name suchen …" value="${esc(cQ)}" oninput="cQ=this.value;render(true)"></label></div>
+  <div class="fchips" style="margin-bottom:14px"><button class="fchip ${cGroup==='alle'?'on':''}" onclick="cGroup='alle';render()">Alle · ${CONTACTS.length}</button>${GROUPS.map(g=>{const n=CONTACTS.filter(k=>k.groups.includes(g.id)).length;return n?`<button class="fchip ${cGroup===g.id?'on':''}" onclick="cGroup='${g.id}';render()">${g.name} · ${n}</button>`:''}).join('')}</div>
+  <div class="rows">${list.map(contactCard).join('')||'<div class="empty">Keine Kontakte gefunden.</div>'}</div>`};
+
+P.contact=(id)=>{const k=K(id);if(!k)return P.contacts();const h=k.hist;
+  const lastOut=k.tl.filter(e=>e.dir==='out'&&e.camp&&C(e.camp).type==='werbung').map(e=>e.d).sort((a,b)=>a-b)[0];
+  const pauseLeft=lastOut==null?0:Math.max(0,7-lastOut);
+  const nextOk=k.dnc?'nie (gesperrt)':k.handover&&!k.done?'pausiert (Mensch)':k.dialog?'sofort (Dialog aktiv)':pauseLeft?`${agoTxt(-pauseLeft)} (${dday(-pauseLeft)})`:'jetzt';
+  return topbar()+hero('Kontakt',k.name,k.groups.map(g=>G(g).name).join(' · '),
+   `${k.handover&&!k.done?`<a class="btn lime" href="#inbox" onclick="iSel='${k.id}'">${ic('headset')} Gespräch übernehmen</a>`:''}${k.dnc?`<button class="btn ghost" onclick="toast('Sperre kann nur nach ausdrücklichem Wunsch der Person aufgehoben werden')">${ic('ban')} Sperre verwalten</button>`:`<button class="btn ghost" onclick="setDnc('${k.id}')">${ic('ban')} Nicht mehr kontaktieren</button>`}<a class="btn ghost" href="#contacts">${ic('chevron-left')} Alle Kontakte</a>`)
+  +(k.dnc?`<div class="dncbox">${ic('ban')}<div>Nicht mehr kontaktieren – gesperrt ${agoTxt(k.dnc.d)} über ${k.dnc.src}: „${esc(k.dnc.text)}“<br><span style="font-weight:500">Gilt für alle Kanäle und Kampagnen. Der Agent kann diese Sperre nicht aufheben.</span></div></div>`:'')
+  +`<div class="prof"><div>
+    <div class="card"><h3>${ic('calendar-days')} Kontaktplan</h3><p class="muted" style="margin:0">Was der Agent als Nächstes vorhat – und warum.</p>
+     ${k.plan.map(p=>`<div class="plan"><span class="when">${typeof p[0]==='number'?(p[0]===0?'jetzt':agoTxt(p[0])):p[0]}${typeof p[0]==='number'&&p[0]<0?`<small>${dday(p[0])}</small>`:''}</span><div><b>${p[1]}</b><div class="muted">${p[2]}</div></div></div>`).join('')||'<div class="empty" style="margin-top:8px">Nichts geplant.</div>'}</div>
+    <div class="card"><h3>${ic('history')} Kaufhistorie</h3>${h?`<p class="muted" style="margin:0">Aus dem OrderManager · Kunde seit ${agoTxt(h.since).replace('vor ','')}</p>
+     <div class="hist"><div><b>${h.orders}</b><span>Bestellungen</span></div><div><b>${agoTxt(h.lastBuy)}</b><span>letzter Kauf</span></div><div><b>${h.revenue}</b><span>Umsatz gesamt</span></div></div>
+     <div class="muted" style="font-weight:700">Analysemodule</div><div class="mods">${h.mods.map(m=>`<span class="mod">${m}</span>`).join('')}${h.nomods.map(m=>`<span class="mod no">${m.startsWith('verkauft')?m:'noch nicht: '+m}</span>`).join('')}</div>
+     <div class="muted" style="font-weight:700">Status</div><div style="font-size:14px;margin:2px 0 10px">${h.abo}</div>
+     ${h.items.map(o=>`<div class="ordrow"><span>${o[0]}</span><span>${o[2]} · ${agoTxt(o[1])}</span></div>`).join('')}`:`<p class="muted" style="margin:0">${k.lead}</p>`}</div>
+    <div class="card"><h3>${ic('plug')} Kanäle, Anrede & Kauflink</h3>
+     <div class="chrow"><span class="chi" style="background:var(--plum)">${ic('languages')}</span><b>Anrede: ${k.anrede[0]}</b><span class="v">${k.anrede[1]}</span></div>
+     <div class="chrow"><span class="chi" style="background:#5FA81E">${ic('shopping-cart')}</span><b>Kauflink</b><span class="v">${k.link}</span></div>
+     ${Object.entries(k.ch).flatMap(([c,v])=>addrs(v).map(([a,ok,lab],j)=>`<div class="chrow">${chi(c)}<b>${CH[c][0]}${addrs(v).length>1?' '+(j+1):''}</b><span class="v">${a}${lab?` · ${lab}`:''}</span>${k.dnc?'<span class="st r">gesperrt</span>':ok?'<span class="st g">erlaubt</span>':'<span class="st n">keine Einwilligung</span>'}${k.pref===c&&!k.dnc&&j===0?'<span class="st p">bevorzugt</span>':''}</div>`)).join('')}
+     ${k.dnc?'':`<div class="inl"><input id="newMail" type="text" placeholder="weitere E-Mail-Adresse …" style="border:1px solid var(--line);border-radius:12px;padding:9px 12px"><input id="newMailL" type="text" placeholder="z. B. Einkauf" style="border:1px solid var(--line);border-radius:12px;padding:9px 12px;max-width:140px"><button class="btn dark sm" onclick="addEmail('${k.id}')">${ic('plus')} Speichern</button></div><p class="muted" style="margin:6px 0 0">Mehrere Adressen, z. B. bei Firmen mit mehreren Teammitgliedern. Neue Adressen brauchen eine eigene Einwilligung.</p>`}</div>
+    <div class="card"><h3>${ic('brain')} Gedächtnis</h3><p class="muted" style="margin:0">Darauf kommt der Agent später gezielt zurück.</p>${k.mem.map(m=>`<div class="mem">${ic(m[0])}<div><b>${m[1]}:</b> ${m[2]}<small>gemerkt ${agoTxt(m[3])}</small></div></div>`).join('')||'<div class="empty" style="margin-top:8px">Noch nichts gemerkt.</div>'}</div>
+    <div class="card"><h3>${ic('clock')} Kontaktfrequenz</h3><div class="freq"><div><b>${k.last>90?'noch keiner':agoTxt(k.last)}</b><span>letzter Kontakt</span></div><div><b>${nextOk}</b><span>nächste Werbung erlaubt</span></div><div><b>sofort</b><span>wichtige Updates</span></div></div>
+     ${k.dialog&&!k.dnc?`<div class="dialog">${ic('message-circle')} Dialog aktiv – der Kontakt hat zuletzt geschrieben, Kontaktpause ausgesetzt.</div>`:''}</div>
+   </div>
+   <div class="card"><h3>${ic('message-square-text')} Verlauf über alle Kanäle</h3><p class="muted" style="margin:0 0 14px">Gesendete Nachrichten mit Screenshot, Antworten als Text, Kanalwechsel, Anrede-Wechsel und Notizen des Agenten.</p>${timeline(k)}</div></div>`};
+function setDnc(id){const k=K(id);k.dnc={d:0,src:'manuell (Daniel W.)',text:'Manuell gesperrt'};k.status=['Nicht kontaktieren','r'];k.plan=[];
+  k.tl.push({d:0,t:'10:30',dir:'sys',icon:'ban',text:'Sperre gesetzt: nicht mehr kontaktieren – alle Kanäle, alle Kampagnen (manuell)'});toast('Gesperrt – der Agent kontaktiert diese Person nicht mehr');render()}
+
+/* ----- Vorlagen ----- */
+let tCh='alle';
+P.templates=()=>{const list=TPL.filter(t=>tCh==='alle'||t.ch===tCh);
+  return topbar()+hero('Vorlagen','Texte für alle Kanäle','Vorlagen für E-Mail, WhatsApp, LinkedIn, Instagram, App-Push und mehr. Kampagnen verweisen auf Vorlagen; der Agent füllt die Platzhalter pro Kontakt – Vorname, Anrede, persönlicher Kauflink, Gutscheincode.',`<button class="btn lime" onclick="newTpl()">${ic('plus')} Neue Vorlage</button>`)
+  +`<div class="fchips" style="margin-bottom:14px"><button class="fchip ${tCh==='alle'?'on':''}" onclick="tCh='alle';render()">Alle · ${TPL.length}</button>${[...new Set(TPL.map(t=>t.ch))].map(c=>`<button class="fchip ${tCh===c?'on':''}" onclick="tCh='${c}';render()">${CH[c][0]} · ${TPL.filter(t=>t.ch===c).length}</button>`).join('')}</div>
+  <div class="tcards">${list.map(tplCard).join('')}</div>
+  <div class="note" style="margin-top:18px">${ic('circle-alert')}<div>WhatsApp: Die erste Nachricht an einen Kontakt muss eine von Meta freigegebene Vorlage sein. Erst wenn der Kontakt antwortet, darf der Agent frei formulieren.</div></div>`};
+
+/* ----- Senden (KI entwirft, Mensch sendet) ----- */
+P.outbox=()=>{const w=waiting(),sent=OUTBOX.filter(o=>o.state==='gesendet');
+  return topbar()+hero('Senden','KI entwirft – du sendest','Hier sammeln sich alle Nachrichten, die ein Mensch absenden soll. Wähle einzelne oder alle aus und sende sie direkt aus der Plattform – niemand muss auf LinkedIn oder Instagram klicken. Zeitpunkt und Absender werden erfasst, Screenshots gespeichert.')
+  +(w.length?`<div class="obar"><button class="cb ${OSEL.size===w.length?'on':''}" onclick="OSEL=OSEL.size===w.length?new Set():new Set(waiting().map(o=>o.id));render(true)" title="Alle auswählen">${ic('check')}</button><span class="cnt">${OSEL.size?`${OSEL.size} von ${w.length} ausgewählt`:`${w.length} Nachrichten warten`}</span><button class="btn line sm" onclick="OSEL=new Set(waiting().map(o=>o.id));render(true)">Alle auswählen</button><button class="btn lime sm" ${OSEL.size?'':'disabled'} onclick="sendSel()">${ic('send')} ${OSEL.size||''} senden als Daniel W.</button></div>`:'')
+  +`<div class="rows">${w.map(o=>`<div class="orow ${OSEL.has(o.id)?'on':''}" onclick="OSEL.has('${o.id}')?OSEL.delete('${o.id}'):OSEL.add('${o.id}');render(true)"><span class="cb ${OSEL.has(o.id)?'on':''}">${ic('check')}</span>${chi(o.ch)}<div style="min-width:0"><div class="t">${o.name} <span class="s">· ${o.role}</span></div><div class="s">${C(o.camp).name}${o.tpl?` · Vorlage „${T(o.tpl).name}“`:''}</div><div class="tx">${esc(o.text)}</div></div><div class="when">entworfen<br>vor ${o.min<60?o.min+' Min.':Math.round(o.min/60)+' Std.'}</div></div>`).join('')||'<div class="empty" style="background:#fff">Alles gesendet – nichts wartet.</div>'}</div>
+  ${sec(`${ic('square-check')} Von Menschen gesendet`)}<div class="rows">${sent.map(o=>`<div class="orow sent"><span class="cb on">${ic('check')}</span>${chi(o.ch)}<div style="min-width:0"><div class="t">${o.name} <span class="s">· ${o.role}</span></div><div class="tx">${esc(o.text)}</div></div><div class="when">gesendet von <b>${o.sentBy}</b><br>${o.sentAt}</div></div>`).join('')}</div>`};
+function sendSel(){const n=OSEL.size;OUTBOX.forEach(o=>{if(OSEL.has(o.id)){o.state='gesendet';o.sentBy='Daniel W.';o.sentAt='01.11.2026, 10:3'+(n%10)+' (heute)'}});OSEL=new Set();
+  toast(`${n} Nachrichten gesendet – Zeitpunkt und Absender erfasst, Screenshots gespeichert`);render(true)}
+
+/* ----- Posteingang ----- */
+let iSel=null;
+P.inbox=()=>{const hs=handovers();if(!iSel||!K(iSel)||!K(iSel).handover||K(iSel).done)iSel=hs[0]?.id;
+  const k=iSel&&K(iSel);
+  const right=!k?'<div class="empty" style="background:#fff">Keine offenen Übergaben.</div>':`<div class="card"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><h3>${ic('headset')} ${k.name}</h3><a class="btn line sm" href="#contact/${k.id}">${ic('contact')} Kontakt öffnen</a></div>
+     <span class="why" style="margin:4px 0 12px">${ic('circle-alert')} ${k.handover}</span>
+     <p class="muted" style="margin:0 0 12px">Der Agent ist für diesen Kontakt pausiert, bis du das Gespräch zurückgibst. Anrede: ${k.anrede[0]}.</p>
+     ${timeline(k)}
+     <div class="reply"><b style="color:var(--plum)">Als Mensch antworten</b><div class="muted">Antwort geht über ${CH[[...k.tl].reverse().find(e=>e.ch)?.ch||'email'][0]} raus – mit deinem Namen, Screenshot wird gespeichert.</div>
+      <textarea id="hReply" placeholder="Deine Antwort an ${k.name.split(' ')[0]} …"></textarea>
+      <div class="r"><button class="btn lime sm" onclick="humanReply('${k.id}')">${ic('send')} Senden als Daniel W.</button><button class="btn line sm" onclick="backToAgent('${k.id}')">${ic('bot')} An Agent zurückgeben</button><button class="btn red sm" onclick="setDnc('${k.id}')">${ic('ban')} Nicht mehr kontaktieren</button></div></div></div>`;
+  return topbar()+hero('Posteingang','Hier antwortet ein Mensch','Wenn jemand mit einem Menschen sprechen möchte, eine Beschwerde oder eine medizinische Frage hat oder der Agent unsicher ist, landet das Gespräch hier.',`<a class="btn ghost" href="#outbox">${ic('send')} ${waiting().length} Entwürfe im Bereich „Senden“</a>`)
+  +`<div class="inbox"><div class="rows">${hs.map(h=>`<div class="thr ${iSel===h.id?'on':''}" onclick="iSel='${h.id}';render()"><div style="display:flex;justify-content:space-between;gap:8px"><b>${h.name}</b><span class="muted">${agoTxt(h.last)}</span></div><div class="muted">${C(h.camps[0]).name}</div><span class="why">${ic('headset')} ${h.handover}</span></div>`).join('')||'<div class="empty" style="background:#fff">Keine offenen Übergaben.</div>'}</div>${right}</div>`};
+function humanReply(id){const k=K(id),v=document.getElementById('hReply').value.trim();if(!v)return toast('Bitte zuerst eine Antwort schreiben');
+  const ch=[...k.tl].reverse().find(e=>e.ch).ch;k.tl.push({d:0,t:'10:31',dir:'out',ch,camp:k.camps[0],by:'Daniel W. (Mensch, über Plattform gesendet)',subj:ch==='email'?'Re: Ihre Nachricht':'',text:v});toast('Gesendet – Screenshot gespeichert');render()}
+function backToAgent(id){const k=K(id);k.done=true;k.status=['Agent übernimmt wieder','g'];k.plan=[[0,'Agent setzt den Dialog fort','Gespräch von Daniel W. zurückgegeben']];k.tl.push({d:0,t:'10:32',dir:'sys',icon:'bot',text:'Gespräch an den Agenten zurückgegeben (Daniel W.)'});toast('Der Agent übernimmt wieder');render()}
+
+/* ----- Agent & MCP ----- */
+P.agent=()=>topbar()+hero('Agent & MCP','Claude arbeitet die Kampagnen ab','Der Agent verbindet sich über einen MCP-Server mit NovoCommunicate. Er holt sich Aufgaben, liest Verlauf und Kaufhistorie, sendet Nachrichten und meldet geprüfte Ergebnisse zurück. Alle Regeln prüft die Plattform – der Agent kann sie nicht umgehen.',`<button class="btn lime" onclick="toast('Agent pausiert (Demo)')">${ic('pause')} Agent pausieren</button>`)
+ +`<div class="card" style="margin-bottom:16px;background:#F4F8DC"><h3 style="color:var(--lime-ink)">${ic('heart')} Grundhaltung des Agenten</h3><p style="margin:4px 0 0;font-size:15px">Immer auf der Seite des Kunden: Der Agent versteht sich als Fürsprecher, der für den Kunden beim Unternehmen etwas herausholt – den besten passenden Gutschein, eine Lösung bei Problemen, eine ehrliche Empfehlung. Er verkauft nichts, was dem Kunden nicht nützt.</p></div>
+  <div class="card"><h3>${ic('zap')} So läuft ein Arbeitsschritt</h3>
+   <div class="arch"><div><b>1 · Aufgabe holen</b>tasks.get_next liefert fällige Kontakte, Vorlagen und Regeln</div><div><b>2 · Kontext lesen</b>Verlauf, Gedächtnis, Anrede, Kaufhistorie</div><div><b>3 · Prüfen</b>check_allowed: Sperre, Einwilligung, Pause, Dialog, Ruhezeit</div><div><b>4 · Senden</b>direkt, verzögert (Persona) oder in „Senden“ für einen Menschen – mit Screenshot</div><div><b>5 · Auswerten</b>Antworten, Ziel im OrderManager prüfen, Kontaktplan aktualisieren</div></div></div>
+  <div class="grid g2" style="margin-top:16px">
+   <div class="card"><h3>${ic('bot')} Status</h3><dl class="kv"><dt>Modell</dt><dd>Claude (über MCP verbunden)</dd><dt>Arbeitet gerade an</dt><dd>Performance Plus Upsell – App-Push-Welle 3</dd><dt>Warteschlange</dt><dd>1.240 Aufgaben · 312 Erinnerungen ab Dienstag</dd><dt>Heute</dt><dd>1.472 gesendet · 61 Antworten ausgewertet · 3 Übergaben</dd><dt>Blockiert durch Regeln</dt><dd>52 (38 Kontaktpause Werbung, 14 Ruhezeit)</dd><dt>Ziele geprüft</dt><dd>OrderManager-Abgleich alle 15 Min. · zuletzt vor 6 Min.</dd></dl></div>
+   <div class="card"><h3>${ic('camera')} Nachweise</h3><p class="muted" style="margin:0 0 8px">Der Screenshot entsteht in der Plattform beim Versand – auch wenn ein Mensch über „Senden“ verschickt.</p><dl class="kv"><dt>Gespeichert</dt><dd>3.812 Screenshots</dd><dt>Format</dt><dd>PNG mit Zeitstempel und Prüfsumme</dd><dt>Antworten</dt><dd>als Text, Kanal und Zeit erfasst</dd><dt>Aufbewahrung</dt><dd>nach Löschfrist der Datenschutzerklärung</dd></dl></div></div>
+  ${sec('MCP-Werkzeuge des Agenten')}
+  <div class="card" style="overflow-x:auto"><table class="tbl"><thead><tr><th>Werkzeug</th><th>Was es tut</th></tr></thead><tbody>${MCP.map(m=>`<tr><td><code>${m[0]}</code></td><td>${m[1]}</td></tr>`).join('')}</tbody></table></div>`;
+
+/* ----- Kanäle ----- */
+const CHINFO={email:'Versand über eigene Domain (SPF/DKIM). Antworten landen im Postfach und werden zugeordnet.',whatsapp:'WhatsApp Business API. Erste Nachricht nur mit freigegebener Vorlage und Einwilligung.',linkedin:'Persönliche 1:1-Nachrichten über verbundenes Konto, mit Tageslimit.',instagram:'Direktnachrichten über Meta Business. Nur an Konten, die öffentlich für Kooperationen offen sind oder selbst geschrieben haben.',youtube:'Kommentare unter Videos über das YouTube-Konto von Novogenia.',social:'Beiträge auf den Novogenia-Kanälen (über Omnisocial).',push:'Push-Nachrichten an Nutzer der GEN(e)IUS-App mit Push-Erlaubnis.',call:'Automatisierte Anrufe – geplant.',chat:'Chat-Nachrichten auf Website und App – geplant.'};
+P.channels=()=>topbar()+hero('Kanäle','Über diese Wege spricht der Agent','Alles läuft über NovoCommunicate – niemand muss selbst auf Instagram, LinkedIn oder WhatsApp klicken. Jede gesendete Nachricht wird als Screenshot gespeichert, jede Antwort erfasst.')
+ +`<div class="grid g3">${Object.entries(CH).map(([k,c])=>`<div class="card chcard"><span class="big" style="background:${c[2]}">${ic(c[1])}</span><div style="min-width:0"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><h3 style="margin:0">${c[0]}</h3><span class="st ${c[4]==='verbunden'?'g':'n'}">${c[4]}</span></div><p class="muted" style="margin:6px 0 8px">${CHINFO[k]}</p>${c[4]==='verbunden'?`<div class="chips"><span class="st p">Screenshot ✓</span><span class="st p">Antworten ✓</span><span class="st p">${TPL.filter(t=>t.ch===k).length} Vorlagen</span></div>`:''}</div></div>`).join('')}</div>`;
+
+/* ----- Regeln ----- */
+P.rules=()=>topbar()+hero('Regeln','Was immer gilt','Diese Regeln gelten für alle Kampagnen. Die Plattform setzt sie technisch durch – eine Kampagne kann sie verschärfen, aber nicht lockern.',`<button class="btn lime" onclick="toast('Regeln bearbeiten (Demo)')">${ic('settings')} Bearbeiten</button>`)
+ +`<div class="pauses">${Object.values(TYPES).map((t,i)=>`<div class="pause ${i?'upd':''}"><span class="tile">${ic(t.icon)}</span><div><span class="muted" style="font-weight:700">Kontaktpause ${t.name}</span><b>${t.pause} Tage</b><span class="muted">${t.desc}</span></div></div>`).join('')}</div>
+ <div class="card">${RULES.map(r=>`<div class="rule">${ic(r[0])}<div><b>${r[1]}</b><span class="muted" style="font-size:14px">${r[2]}</span></div></div>`).join('')}</div>
+  ${sec('Gesperrte Kontakte')}<div class="rows">${CONTACTS.filter(k=>k.dnc).map(contactCard).join('')}</div>`;
+
+/* ===================== Router ===================== */
+function render(keep){const h=(location.hash.slice(1)||'board').split('/');const page=P[h[0]]?h[0]:'board';
+  const ae=document.activeElement,fid=keep&&ae&&ae.closest('#main')?[...document.querySelectorAll('#main input,#main textarea')].indexOf(ae):-1,pos=fid>=0?ae.selectionStart:0;
+  const y=scrollY;
+  renderRail({camp:'camps',contact:'contacts'}[page]||page);
+  const m=document.getElementById('main');m.className='main'+(page==='board'?' wide':'');
+  m.innerHTML=P[page](h[1]);
+  if(page==='board')startFeed();
+  if(keep){scrollTo(0,y);if(fid>=0){const el=document.querySelectorAll('#main input,#main textarea')[fid];if(el){el.focus();try{el.setSelectionRange(pos,pos)}catch(e){}}}}
+}
+addEventListener('hashchange',()=>{render();scrollTo(0,0)});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+render();
+</script>
+</body>
+</html>
